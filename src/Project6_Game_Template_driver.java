@@ -9,7 +9,7 @@
  */
 public class Project6_Game_Template_driver
 {
-   public static void main()
+   public static void main(String[] arg)
    {
        Game();
    }

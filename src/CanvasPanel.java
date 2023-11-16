@@ -36,8 +36,8 @@ public class CanvasPanel extends JPanel
         // Create a render loop
         // Create a Swing Timer that will tick 30 times a second
         // At each tick the ActionListener that was registered via the lambda expression will be invoked
-        Timer renderLoop = new Timer(30, (ActionEvent ev) -> {frameNumber++; Simulate(); repaint();}); // lambda expression for ActionListener implements actionPerformed
-        renderLoop.start();
+        //Timer renderLoop = new Timer(30, (ActionEvent ev) -> {frameNumber++; Simulate(); repaint();}); // lambda expression for ActionListener implements actionPerformed
+        //renderLoop.start();
     }
     
     public void Simulate()
