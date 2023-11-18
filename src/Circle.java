@@ -39,25 +39,20 @@ public class Circle
     private double yPosition;   
     private Color  color;          // the color of the sphere
     private int    colorIndex;     // the index of the color of the sphere in the COLORS array
-    
-    /**
-     * Constructor for shapes
-     */
-    public Circle()
-    {
-        diameter = 40;
-        xPosition = 20;
-        yPosition = 20;
 
-        colorIndex = 0;
-        color = COLORS[0];
-    }
-    
-    public Circle(int colorIndex)
+    /**
+     * More versatile circle constructor, can now set the x and y position plus the size
+     *
+     * @param x
+     * @param y
+     * @param diameter
+     * @param colorIndex
+     */
+    public Circle(int x, int y, int diameter, int colorIndex)
     {
-        diameter = 40;
-        xPosition = 20;
-        yPosition = 20;
+        this.diameter = diameter;
+        this.xPosition = x;
+        this.yPosition = y;
 
         this.colorIndex = colorIndex;
         color = COLORS[this.colorIndex];

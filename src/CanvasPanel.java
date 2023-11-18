@@ -1,13 +1,17 @@
 /**
  * 2D CanvasPanel
- * 
  *
- * @author (Prof R)
- * @version (v1.0 11-17-22)
+ * Adapted to fit Asteroids like theme
+ *
+ * @author (Prof R, Nicholas Rua)
+ * @version (v2.0 11-18-23)
  */
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
 
 public class CanvasPanel extends JPanel
 {
@@ -15,19 +19,15 @@ public class CanvasPanel extends JPanel
     private final static int Y_CORNER = 25;
     private final static int CANVAS_WIDTH = 800;
     private final static int CANVAS_HEIGHT = 400;
-    
-    // private List<Shape>
-    private Circle circle1;
-    private Circle circle2;
+
+    private ArrayList<Circle> stars = new ArrayList<>();
     private int frameNumber;
+    private Random random = new Random();
 
     
     public CanvasPanel()
     {
-        // Create some shapes, they should be in a List
-        circle1 = new Circle();  // Construct a circle with the default color
-        circle2 = new Circle(7); // Construct a circle with color index 7
-        
+
         // Callback for keyboard events
         this.setFocusable(true);
         this.addKeyListener(new myActionListener());
@@ -42,8 +42,7 @@ public class CanvasPanel extends JPanel
     
     public void Simulate()
     {
-        circle1.Move(1, 2); // move the shape along via a delta in x and y
-        circle2.Move(2, 1); // move the shape along via a delta in x and y
+
     }
 
     // This method is called by renderloop
@@ -57,13 +56,17 @@ public class CanvasPanel extends JPanel
         g.setColor(Color.BLACK);
         g.fillRect(0,0,CANVAS_WIDTH + 2 * X_CORNER, CANVAS_HEIGHT + 2 * Y_CORNER); //draw the black border
         
-        // Set canvas background to grey
-        g.setColor(Color.LIGHT_GRAY);
+        // Set canvas background to black
+        g.setColor(Color.BLACK);
         g.fillRect(X_CORNER, Y_CORNER, CANVAS_WIDTH, CANVAS_HEIGHT); //make the canvas white
 
-        // Need to make draw polymorphic and call draw for each shape in out list
-        circle1.draw(g);
-        circle2.draw(g);  
+        //Makes a bunch of circles that will be "stars" for the background
+        for(int i = 0; i <= 250; i++) {
+            Circle star = new Circle(random.nextInt(800), random.nextInt(400),
+                    1, 5);
+            stars.add(star);
+        }
+        stars.forEach((Circle star) -> star.draw(g)); //draws each star
     }
     
     public static int getCanvasWidth()
@@ -93,16 +96,19 @@ public class CanvasPanel extends JPanel
             {
                 case KeyEvent.VK_UP:
                     System.out.println("press up arrow");
-                break;
+                    break;
                 case KeyEvent.VK_DOWN:
                     System.out.println("press down arrow");
-                break;
+                    break;
                 case KeyEvent.VK_LEFT:
                     System.out.println("press left arrow");
-                break;
+                    break;
                 case KeyEvent.VK_RIGHT:
                     System.out.println("press right arrow");
-                break;
+                    break;
+                case KeyEvent.VK_SPACE:
+                    System.out.println("press space bar");
+                    break;
                 default:
                     System.out.println("press some other key besides the arrow keys");
             }
