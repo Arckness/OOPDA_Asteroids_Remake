@@ -6,7 +6,6 @@
  *
  * @author (Nicholas Rua, Norah Micciulla)
  * @version (v1.0, 11-16-2023)
- * norah is a bitch
  */
 public class Project6_Game_Template_driver
 {
