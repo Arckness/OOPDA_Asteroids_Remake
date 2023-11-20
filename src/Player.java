@@ -23,7 +23,10 @@ public class Player extends Entity{
     }
 
     public void shoot(){
-
+        Vector projectilePosition = new Vector(getPosition());
+        Projectile projectile = new Projectile(projectilePosition);
+        // Add the projectile to the entity list, possibly make projectiles
+        // be rectangles since we need more shape objects
     }
 
 

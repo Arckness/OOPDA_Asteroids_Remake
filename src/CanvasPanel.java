@@ -24,25 +24,27 @@ public class CanvasPanel extends JPanel
     private int frameNumber;
     private Random random = new Random();
 
-    
+
     public CanvasPanel()
     {
-
         // Callback for keyboard events
         this.setFocusable(true);
         this.addKeyListener(new myActionListener());
         System.out.println("keyboard event registered");
-        
+
         // Create a render loop
         // Create a Swing Timer that will tick 30 times a second
         // At each tick the ActionListener that was registered via the lambda expression will be invoked
-        //Timer renderLoop = new Timer(30, (ActionEvent ev) -> {frameNumber++; Simulate(); repaint();}); // lambda expression for ActionListener implements actionPerformed
-        //renderLoop.start();
+        Timer renderLoop = new Timer(30, (ActionEvent ev) -> {frameNumber++; Simulate(); repaint();}); // lambda expression for ActionListener implements actionPerformed
+        renderLoop.start();
     }
-    
+
     public void Simulate()
     {
-
+        /* if (state == gameState.playing)
+        {
+            // Perform various actions related to updating the game state
+        }*/
     }
 
     // This method is called by renderloop
@@ -51,24 +53,24 @@ public class CanvasPanel extends JPanel
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        
+
         // Set window background to black
         g.setColor(Color.BLACK);
         g.fillRect(0,0,CANVAS_WIDTH + 2 * X_CORNER, CANVAS_HEIGHT + 2 * Y_CORNER); //draw the black border
-        
+
         // Set canvas background to black
         g.setColor(Color.BLACK);
         g.fillRect(X_CORNER, Y_CORNER, CANVAS_WIDTH, CANVAS_HEIGHT); //make the canvas white
 
         //Makes a bunch of circles that will be "stars" for the background
         for(int i = 0; i <= 250; i++) {
-            Circle star = new Circle(random.nextInt(800), random.nextInt(400),
+            Circle star = new Circle(random.nextInt(850), random.nextInt(450),
                     1, 5);
             stars.add(star);
         }
         stars.forEach((Circle star) -> star.draw(g)); //draws each star
     }
-    
+
     public static int getCanvasWidth()
     {
         return CANVAS_WIDTH;
@@ -88,7 +90,7 @@ public class CanvasPanel extends JPanel
     {
         return Y_CORNER;
     }
-    public class myActionListener extends KeyAdapter 
+    public class myActionListener extends KeyAdapter
     {
         public void keyPressed(KeyEvent e)
         {

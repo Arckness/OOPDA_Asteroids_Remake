@@ -22,4 +22,9 @@ public class Entity {
         position.add(this.velocity);
     }
 
+    public Vector getPosition() { return position; }
+
+    public Vector getVelocity() { return velocity; }
+
+    public void setVelocity(Vector velocity) { this.velocity = velocity; }
 }
