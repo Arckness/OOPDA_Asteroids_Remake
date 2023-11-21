@@ -13,6 +13,7 @@ public class Player extends Entity{
     private double shotDelay;
     private boolean isVisible;
     private int score;
+    //private Triangle sprite = new Triangle();
 
     public Player(Vector position){
         super(position);

@@ -10,7 +10,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 
 public class CanvasPanel extends JPanel
@@ -23,7 +22,7 @@ public class CanvasPanel extends JPanel
     private ArrayList<Circle> stars = new ArrayList<>();
     private int frameNumber;
     private Random random = new Random();
-
+    Triangle ship = new Triangle(CANVAS_WIDTH/2, CANVAS_HEIGHT/2, 5);
 
     public CanvasPanel()
     {
@@ -63,12 +62,15 @@ public class CanvasPanel extends JPanel
         g.fillRect(X_CORNER, Y_CORNER, CANVAS_WIDTH, CANVAS_HEIGHT); //make the canvas white
 
         //Makes a bunch of circles that will be "stars" for the background
-        for(int i = 0; i <= 250; i++) {
-            Circle star = new Circle(random.nextInt(850), random.nextInt(450),
-                    1, 5);
-            stars.add(star);
-        }
-        stars.forEach((Circle star) -> star.draw(g)); //draws each star
+//        for(int i = 0; i <= 250; i++) {
+//            Circle star = new Circle(random.nextInt(850), random.nextInt(450),
+//                    1, 5);
+//            stars.add(star);
+//        }
+//        stars.forEach((Circle star) -> star.draw(g)); //draws each star
+
+
+        ship.draw(g);
     }
 
     public static int getCanvasWidth()
@@ -97,13 +99,10 @@ public class CanvasPanel extends JPanel
             switch (e.getKeyCode())
             {
                 case KeyEvent.VK_UP:
-                    System.out.println("press up arrow");
-                    break;
-                case KeyEvent.VK_DOWN:
-                    System.out.println("press down arrow");
+                    ship.Move(0,3);
                     break;
                 case KeyEvent.VK_LEFT:
-                    System.out.println("press left arrow");
+                    ;
                     break;
                 case KeyEvent.VK_RIGHT:
                     System.out.println("press right arrow");

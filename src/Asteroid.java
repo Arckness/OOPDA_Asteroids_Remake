@@ -15,18 +15,5 @@ public class Asteroid extends Entity{
         this.size = size;
     }
 
-    public int getSmall() {
-        int small = 25;
-        return small;
-    }
 
-    public int getMed() {
-        int med = 50;
-        return med;
-    }
-
-    public int getLarge() {
-        int large = 100;
-        return large;
-    }
 }

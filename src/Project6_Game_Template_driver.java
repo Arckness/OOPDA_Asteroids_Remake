@@ -12,7 +12,7 @@ import java.util.List;
 public class Project6_Game_Template_driver
 {
 
-    List<Entity> entityList = new ArrayList<>();
+    List<Entity> entityList = new ArrayList<>(); //this will contain all the entities on the screen
 
    public static void main(String[] arg)
    {
