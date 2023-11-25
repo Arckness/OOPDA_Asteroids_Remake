@@ -18,7 +18,7 @@ public class CanvasFrame
      */
     public CanvasFrame()
     {
-        frame = new JFrame("Asteroids!"); //make the JFrame, and set thw window bar title
+        frame = new JFrame("OPPDA Spring 2023 CanvasFrame"); //make the JFrame, and set thw window bar title 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         canvas = new CanvasPanel();  // CanvasPanel extends a JPanel
