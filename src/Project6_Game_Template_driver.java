@@ -1,21 +1,29 @@
-
 /**
- * Project6 template driver class for frame(window), and panel(canvas)
- * 
- * template code for building your final project game
+ * Asteroids Game for project 6 of OOPDA
  *
- * @author (Joe Schmoe)
- * @version (v1.0, 4-14-2023)
+ * @author (Nicholas Rua, Norah Micciulla)
+ * @version (v1.0, 11-25-2023)
  */
 public class Project6_Game_Template_driver
 {
-   public static void main()
+   public static void main(String[] arg)
    {
        Game();
    }
    
    public static void Game()
    {
-       new CanvasFrame();  // construct the window, which will construct a frame (window), and a panel(canvas)
+       CanvasFrame canvasFrame = new CanvasFrame();  // construct the window, which will construct a frame (window), and a panel(canvas)
+
+       while(true) {
+           canvasFrame.canvas.Simulate();
+           canvasFrame.canvas.repaint();
+
+           try {
+               Thread.sleep(30);
+           } catch(InterruptedException e) {
+               e.printStackTrace();
+           }
+       }
    }
 }

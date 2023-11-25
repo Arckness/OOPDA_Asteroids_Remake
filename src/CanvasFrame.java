@@ -11,7 +11,7 @@ import java.awt.event.*;
 public class CanvasFrame 
 {
     private JFrame frame;       // the actual frame(window) we'll be showing
-    private CanvasPanel canvas; // the canvas we'll be drawing
+    CanvasPanel canvas; // the canvas we'll be drawing
     
     /**
      * Creates a new CanvasFrame object.

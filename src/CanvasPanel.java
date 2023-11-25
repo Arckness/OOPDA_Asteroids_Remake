@@ -8,6 +8,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class CanvasPanel extends JPanel
 {
@@ -16,18 +17,15 @@ public class CanvasPanel extends JPanel
     private final static int CANVAS_WIDTH = 800;
     private final static int CANVAS_HEIGHT = 400;
     
-    // private List<Shape>
-    private Circle circle1;
-    private Circle circle2;
+    //private List<Asteroid> asteroids = new ArrayList<Asteroid>();
+    private Triangle triangle = new Triangle(5, 400, 300, 20);
     private int frameNumber;
 
     
     public CanvasPanel()
     {
-        // Create some shapes, they should be in a List
-        circle1 = new Circle();  // Construct a circle with the default color
-        circle2 = new Circle(7); // Construct a circle with color index 7
-        
+        //asteroids.add(new Asteroid());
+
         // Callback for keyboard events
         this.setFocusable(true);
         this.addKeyListener(new myActionListener());
@@ -42,8 +40,7 @@ public class CanvasPanel extends JPanel
     
     public void Simulate()
     {
-        circle1.Move(1, 2); // move the shape along via a delta in x and y
-        circle2.Move(2, 1); // move the shape along via a delta in x and y
+
     }
 
     // This method is called by renderloop
@@ -57,13 +54,11 @@ public class CanvasPanel extends JPanel
         g.setColor(Color.BLACK);
         g.fillRect(0,0,CANVAS_WIDTH + 2 * X_CORNER, CANVAS_HEIGHT + 2 * Y_CORNER); //draw the black border
         
-        // Set canvas background to grey
-        g.setColor(Color.LIGHT_GRAY);
+        // Set canvas background to black
+        g.setColor(Color.BLACK);
         g.fillRect(X_CORNER, Y_CORNER, CANVAS_WIDTH, CANVAS_HEIGHT); //make the canvas white
 
-        // Need to make draw polymorphic and call draw for each shape in out list
-        circle1.draw(g);
-        circle2.draw(g);  
+        triangle.draw(g);
     }
     
     public static int getCanvasWidth()
@@ -85,7 +80,12 @@ public class CanvasPanel extends JPanel
     {
         return Y_CORNER;
     }
-    public class myActionListener extends KeyAdapter 
+
+
+    /**
+     * Handles all the input into the game
+     */
+    public class myActionListener extends KeyAdapter
     {
         public void keyPressed(KeyEvent e)
         {
@@ -93,18 +93,19 @@ public class CanvasPanel extends JPanel
             {
                 case KeyEvent.VK_UP:
                     System.out.println("press up arrow");
-                break;
-                case KeyEvent.VK_DOWN:
-                    System.out.println("press down arrow");
+                    //accelerate forward
                 break;
                 case KeyEvent.VK_LEFT:
                     System.out.println("press left arrow");
+                    //rotate left
                 break;
                 case KeyEvent.VK_RIGHT:
                     System.out.println("press right arrow");
+                    //rotate right
                 break;
-                default:
-                    System.out.println("press some other key besides the arrow keys");
+                case KeyEvent.VK_SPACE:
+                    System.out.println("press space bar");
+                    //shoot
             }
         }
         public void keyReleased(KeyEvent e)
