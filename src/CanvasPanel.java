@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CanvasPanel extends JPanel
 {
@@ -17,14 +18,21 @@ public class CanvasPanel extends JPanel
     private final static int CANVAS_WIDTH = 800;
     private final static int CANVAS_HEIGHT = 400;
     
-    //private List<Asteroid> asteroids = new ArrayList<Asteroid>();
+    private List<AsteroidPolygon> asteroids = new ArrayList<>();
     private Triangle triangle = new Triangle(5, 400, 300, 20);
     private int frameNumber;
 
     
     public CanvasPanel()
     {
-        //asteroids.add(new Asteroid());
+        AsteroidPolygon smallAsteroid = new AsteroidPolygon(4, 300, 100, 0); // Small asteroid
+        AsteroidPolygon mediumAsteroid = new AsteroidPolygon(4, 400, 200, 1); // Medium asteroid
+        AsteroidPolygon largeAsteroid = new AsteroidPolygon(4, 500, 300, 2); // Large asteroid
+
+        asteroids.add(smallAsteroid);
+        asteroids.add(mediumAsteroid);
+        asteroids.add(largeAsteroid);
+
 
         // Callback for keyboard events
         this.setFocusable(true);
@@ -59,6 +67,10 @@ public class CanvasPanel extends JPanel
         g.fillRect(X_CORNER, Y_CORNER, CANVAS_WIDTH, CANVAS_HEIGHT); //make the canvas white
 
         triangle.draw(g);
+
+        for (AsteroidPolygon asteroid : asteroids) {
+            asteroid.draw(g);
+        }
     }
     
     public static int getCanvasWidth()
