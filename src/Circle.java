@@ -7,7 +7,6 @@
  */
 
 import java.awt.*;
-import java.awt.geom.*;
 
 public class Circle extends Shape
 {
@@ -16,10 +15,11 @@ public class Circle extends Shape
     /**
      * Constructor for circles
      */
-    public Circle(int colorIndex, int xPosition, int yPosition) {
+    public Circle(int colorIndex, int xPosition, int yPosition, int diameter) {
         super(colorIndex, xPosition, yPosition);
-        diameter = 40;
+        this.diameter = diameter;
     }
+
 
     /**
      * Moves the ball its speed 

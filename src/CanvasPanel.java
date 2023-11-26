@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class CanvasPanel extends JPanel
 {
@@ -49,6 +50,20 @@ public class CanvasPanel extends JPanel
     public void Simulate()
     {
 
+    }
+
+    /**
+     * Generates a buncha stars
+     */
+    public void generateStars() {
+        ArrayList<Circle> stars = new ArrayList<Circle>();
+
+        Random random = new Random();
+        for(int i = 0; i < 150; i++) {
+            int x = random.nextInt(getCanvasWidth());
+            int y = random.nextInt(getCanvasHeight());
+            stars.add(new Circle(5, x, y, 1));
+        }
     }
 
     // This method is called by renderloop
