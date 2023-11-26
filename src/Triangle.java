@@ -10,7 +10,7 @@ public class Triangle extends Shape{
     private int sideLength;
     private double velocity;
     private double acceleration;
-    private static final double maxVelocity = 5;
+    private static final double maxVelocity = 7;
 
     public Triangle(int colorIndex, int xPosition, int yPosition, int sideLength) {
         super(colorIndex, xPosition, yPosition);

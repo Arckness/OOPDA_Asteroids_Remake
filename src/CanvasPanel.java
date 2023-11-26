@@ -9,7 +9,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 public class CanvasPanel extends JPanel
 {
@@ -106,30 +108,39 @@ public class CanvasPanel extends JPanel
     /**
      * Handles all the input into the game
      */
-    public class myActionListener extends KeyAdapter
-    {
+    public class myActionListener extends KeyAdapter {
+        private final Set<Integer> pressedKeys = new HashSet<>();
+
         public void keyPressed(KeyEvent e)
         {
-            switch (e.getKeyCode())
-            {
-                case KeyEvent.VK_UP:
-                    player.Accelerate(0.5);
-                    player.Move();
-                break;
-                case KeyEvent.VK_LEFT:
-                    player.Rotate(-Math.PI / 180);
-                break;
-                case KeyEvent.VK_RIGHT:
-                    player.Rotate(Math.PI / 180);
-                break;
-                case KeyEvent.VK_SPACE:
-                    System.out.println("press space bar");
-                    //shoot
-            }
+           int keyCode = e.getKeyCode();
+           pressedKeys.add(keyCode);
+
+           handleKeyInputs();
         }
         public void keyReleased(KeyEvent e)
         {
+            int keyCode = e.getKeyCode();
+            pressedKeys.remove(keyCode);
 
+            handleKeyInputs();
+        }
+
+        private void handleKeyInputs() {
+            if (pressedKeys.contains(KeyEvent.VK_UP)) {
+                player.Accelerate(0.75);
+                player.Move();
+            }
+            if (pressedKeys.contains(KeyEvent.VK_LEFT)) {
+                player.Rotate(-Math.PI / 45);
+            }
+            if (pressedKeys.contains(KeyEvent.VK_RIGHT)) {
+                player.Rotate(Math.PI / 45);
+            }
+            if (pressedKeys.contains(KeyEvent.VK_SPACE)) {
+                System.out.println("press space bar");
+                // shoot
+            }
         }
     }
 }
