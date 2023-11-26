@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class CanvasPanel extends JPanel
 {
@@ -16,15 +17,19 @@ public class CanvasPanel extends JPanel
     private final static int Y_CORNER = 25;
     private final static int CANVAS_WIDTH = 800;
     private final static int CANVAS_HEIGHT = 400;
+    private ArrayList<Circle> stars;
     
-    //private List<Asteroid> asteroids = new ArrayList<Asteroid>();
-    private Triangle triangle = new Triangle(5, 400, 300, 20);
+    //private ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
+    private Triangle player = new Triangle(5, 400, 400, 20);
+    //private Octagon octagon = new Octagon(5, CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, 20);
     private int frameNumber;
 
     
     public CanvasPanel()
     {
         //asteroids.add(new Asteroid());
+
+        generateStars();
 
         // Callback for keyboard events
         this.setFocusable(true);
@@ -43,6 +48,21 @@ public class CanvasPanel extends JPanel
 
     }
 
+    /**
+     * Generates a buncha stars
+     */
+    public void generateStars() {
+        stars = new ArrayList<Circle>();
+
+        Random random = new Random();
+        for(int i = 0; i < 250; i++) {
+            int x = random.nextInt(getCanvasWidth());
+            int y = random.nextInt(getCanvasHeight());
+            stars.add(new Circle(5, x, y, 1));
+        }
+    }
+
+
     // This method is called by renderloop
     public void paintComponent(Graphics g)
     {
@@ -58,7 +78,10 @@ public class CanvasPanel extends JPanel
         g.setColor(Color.BLACK);
         g.fillRect(X_CORNER, Y_CORNER, CANVAS_WIDTH, CANVAS_HEIGHT); //make the canvas white
 
-        triangle.draw(g);
+        stars.forEach(star -> star.draw(g));
+
+        player.draw(g);
+        //octagon.draw(g);
     }
     
     public static int getCanvasWidth()
@@ -92,16 +115,14 @@ public class CanvasPanel extends JPanel
             switch (e.getKeyCode())
             {
                 case KeyEvent.VK_UP:
-                    System.out.println("press up arrow");
-                    //accelerate forward
+                    player.Accelerate(0.5);
+                    player.Move();
                 break;
                 case KeyEvent.VK_LEFT:
-                    System.out.println("press left arrow");
-                    //rotate left
+                    player.Rotate(-Math.PI / 180);
                 break;
                 case KeyEvent.VK_RIGHT:
-                    System.out.println("press right arrow");
-                    //rotate right
+                    player.Rotate(Math.PI / 180);
                 break;
                 case KeyEvent.VK_SPACE:
                     System.out.println("press space bar");
@@ -110,7 +131,7 @@ public class CanvasPanel extends JPanel
         }
         public void keyReleased(KeyEvent e)
         {
-            System.out.println("released");
+
         }
     }
 }

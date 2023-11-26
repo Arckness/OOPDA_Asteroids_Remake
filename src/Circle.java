@@ -21,13 +21,17 @@ public class Circle extends Shape
         diameter = 40;
     }
 
+    public Circle(int colorIndex, int xPosition, int yPosition, int diameter) {
+        super(colorIndex, xPosition, yPosition);
+        this.diameter = diameter;
+    }
+
     /**
      * Moves the ball its speed 
      */
-    public void Move(double xDelta, double yDelta) {
-        //move our speed
-        xPosition = xDelta;
-        yPosition += yDelta;
+    public void Move() {
+        xPosition = 0;
+        yPosition += 0;
     }
     
     /**

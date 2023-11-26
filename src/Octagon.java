@@ -1,18 +1,21 @@
 import java.awt.*;
+import java.util.Random;
 
 public class Octagon extends Shape {
 
     private int sideLength; // Additional property specific to Octagon
+    private Random random = new Random();
 
     public Octagon(int colorIndex, int xPosition, int yPosition, int sideLength) {
         super(colorIndex, xPosition, yPosition);
         this.sideLength = sideLength;
+        this.velocity = random.nextInt(1,5);
     }
 
     @Override
-    public void Move(double xDelta, double yDelta) {
-        xPosition += xDelta;
-        yPosition += yDelta;
+    public void Move() {
+        xPosition += velocity * Math.cos(direction);
+        yPosition += velocity * Math.sin(direction);
     }
 
     @Override
@@ -29,7 +32,7 @@ public class Octagon extends Shape {
             yPoints[i] = (int) (yPosition + sideLength * Math.sin(angle));
         }
 
-        g.fillPolygon(xPoints, yPoints, 8);
+        g.drawPolygon(xPoints, yPoints, 8);
     }
 
 }

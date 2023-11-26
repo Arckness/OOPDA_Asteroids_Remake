@@ -13,6 +13,8 @@ public abstract class Shape {
     private int colorIndex;     // the index of the color of the sphere in the COLORS array
     double xPosition;
     double yPosition;
+    double direction;
+    double velocity;
 
     public static final Color[] COLORS = {
             //         R     G    B
@@ -43,6 +45,7 @@ public abstract class Shape {
         this.yPosition = yPosition;
         this.colorIndex = colorIndex;
         color = COLORS[this.colorIndex];
+        this.direction = -Math.PI / 2;
     }
 
     /**
@@ -72,7 +75,7 @@ public abstract class Shape {
         return (int)yPosition;
     }
 
-    public abstract void Move(double xDelta, double yDelta);
+    public abstract void Move();
 
     public abstract void draw(Graphics g);
 

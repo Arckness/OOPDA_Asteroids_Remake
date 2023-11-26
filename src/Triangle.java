@@ -1,31 +1,86 @@
+/**
+ * Triangle Class, the "ship" that the player controls
+ */
+
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 
 public class Triangle extends Shape{
 
     private int sideLength;
+    private double velocity;
+    private double acceleration;
+    private static final double maxVelocity = 5;
 
     public Triangle(int colorIndex, int xPosition, int yPosition, int sideLength) {
         super(colorIndex, xPosition, yPosition);
         this.sideLength = sideLength;
+        velocity = 0;
+        acceleration = 0;
     }
 
     @Override
-    public void Move(double xDelta, double yDelta) {
-        xPosition += xDelta;
-        yPosition += yDelta;
+    public void Move() {
+        updateState();
+
+        xPosition += velocity * Math.cos(direction);
+        yPosition += velocity * Math.sin(direction);
+    }
+
+    /**
+     * Calculates acceleration and velocity
+     */
+    private void updateState() {
+        //Applying acceleration
+        velocity += acceleration;
+
+        //Limits velocity
+        velocity = Math.min(maxVelocity, velocity);
+
+        //Inertia
+        velocity -= 0.25;
+    }
+
+    public void decelerate() {
+        velocity -= 0.25;
+    }
+
+    public void Rotate(double angle) {
+        double centerX = xPosition + sideLength / 2;
+        double centerY = yPosition + sideLength / 2;
+        xPosition = centerX + (xPosition - centerX) * Math.cos(angle) - (yPosition - centerY) * Math.sin(angle);
+        yPosition = centerY + (xPosition - centerX) * Math.sin(angle) + (yPosition - centerY) * Math.cos(angle);
+
+        // Update the direction
+        direction += angle;
+    }
+
+    public void Accelerate(double acceleration) {
+        this.acceleration = acceleration;
     }
 
     @Override
     public void draw(Graphics g) {
         g.setColor(color);
 
-        int[] xPoints = {
-                (int) xPosition, (int) (xPosition + sideLength), (int) (xPosition + sideLength / 2)
-        };
-        int[] yPoints = {
-                (int) (yPosition + sideLength), (int) (yPosition + sideLength), (int) (xPosition)
-        };
+        // Create an AffineTransform to rotate and translate the player
+        AffineTransform transform = new AffineTransform();
+        transform.rotate(direction, xPosition + sideLength / 2, yPosition + sideLength / 2);
+        transform.translate(xPosition, yPosition);
 
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setTransform(transform);
+
+        // Draw the player as a filled triangle
+        int[] xPoints = {0, sideLength, 0};
+        int[] yPoints = {0, sideLength / 2, sideLength};
         g.fillPolygon(xPoints, yPoints, 3);
+
+        g2d.setTransform(new AffineTransform());
+    }
+
+    public double getVelocity() {
+        return velocity;
     }
 }
+
