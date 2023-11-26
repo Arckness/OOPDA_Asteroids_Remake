@@ -29,8 +29,6 @@ public class CanvasPanel extends JPanel
     {
         //asteroids.add(new Asteroid());
 
-        generateStars();
-
         // Callback for keyboard events
         this.setFocusable(true);
         this.addKeyListener(new myActionListener());
@@ -41,6 +39,8 @@ public class CanvasPanel extends JPanel
         // At each tick the ActionListener that was registered via the lambda expression will be invoked
         Timer renderLoop = new Timer(30, (ActionEvent ev) -> {frameNumber++; Simulate(); repaint();}); // lambda expression for ActionListener implements actionPerformed
         renderLoop.start();
+
+        generateStars();
     }
     
     public void Simulate()
@@ -55,10 +55,8 @@ public class CanvasPanel extends JPanel
         stars = new ArrayList<Circle>();
 
         Random random = new Random();
-        for(int i = 0; i < 250; i++) {
-            int x = random.nextInt(getCanvasWidth());
-            int y = random.nextInt(getCanvasHeight());
-            stars.add(new Circle(5, x, y, 1));
+        for(int i = 0; i < 150; i++) {
+            stars.add(new Circle(5, random.nextInt(800), random.nextInt(400), 1));
         }
     }
 
@@ -78,7 +76,7 @@ public class CanvasPanel extends JPanel
         g.setColor(Color.BLACK);
         g.fillRect(X_CORNER, Y_CORNER, CANVAS_WIDTH, CANVAS_HEIGHT); //make the canvas white
 
-        stars.forEach(star -> star.draw(g));
+        stars.forEach(star -> star.draw(g2));
 
         player.draw(g);
         //octagon.draw(g);
