@@ -74,7 +74,7 @@ public class Triangle extends Shape{
         // Draw the player as a filled triangle
         int[] xPoints = {0, sideLength, 0};
         int[] yPoints = {0, sideLength / 2, sideLength};
-        g.fillPolygon(xPoints, yPoints, 3);
+        g.drawPolygon(xPoints, yPoints, 3);
 
         g2d.setTransform(new AffineTransform());
     }
