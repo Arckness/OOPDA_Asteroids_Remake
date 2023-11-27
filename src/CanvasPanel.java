@@ -22,7 +22,7 @@ public class CanvasPanel extends JPanel
     private ArrayList<Circle> stars;
     
     //private ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
-    private Triangle player = new Triangle(5, 400, 400, 25);
+    private Triangle player = new Triangle(5, CANVAS_WIDTH / 2, CANVAS_HEIGHT, 25);
     //private Octagon octagon = new Octagon(5, CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, 20);
     private int frameNumber;
 
