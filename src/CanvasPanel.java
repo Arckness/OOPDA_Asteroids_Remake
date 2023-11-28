@@ -20,8 +20,7 @@ public class CanvasPanel extends JPanel
     private final static int CANVAS_WIDTH = 800;
     private final static int CANVAS_HEIGHT = 400;
     private ArrayList<Circle> stars;
-    
-    //private ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
+    private ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
     private Triangle player = new Triangle(5, CANVAS_WIDTH / 2, CANVAS_HEIGHT, 25);
     //private Octagon octagon = new Octagon(5, CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, 20);
     private int frameNumber;
@@ -29,7 +28,13 @@ public class CanvasPanel extends JPanel
     
     public CanvasPanel()
     {
-        //asteroids.add(new Asteroid());
+        asteroids = new ArrayList<>();
+
+        // Add some asteroids to the list
+        for (int i=0; i < 5; i++) {
+            asteroids.add(new Asteroid(5, CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, i % 3));
+    }
+
 
         // Callback for keyboard events
         this.setFocusable(true);
@@ -47,7 +52,9 @@ public class CanvasPanel extends JPanel
     
     public void Simulate()
     {
-
+        for (Asteroid asteroid : asteroids) {
+            asteroid.Move();
+        }
     }
 
     /**
@@ -81,7 +88,9 @@ public class CanvasPanel extends JPanel
         stars.forEach(star -> star.draw(g2));
 
         player.draw(g);
-        //octagon.draw(g);
+        for (Asteroid asteroid : asteroids) {
+            asteroid.draw(g2);
+        }
     }
     
     public static int getCanvasWidth()
