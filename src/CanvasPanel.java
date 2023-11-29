@@ -13,45 +13,48 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-public class CanvasPanel extends JPanel
-{
+public class CanvasPanel extends JPanel {
     private final static int X_CORNER = 25;
     private final static int Y_CORNER = 25;
     private final static int CANVAS_WIDTH = 800;
     private final static int CANVAS_HEIGHT = 400;
     private ArrayList<Circle> stars;
-    private ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
+    private ArrayList<Asteroid> asteroids;
+    private ArrayList<Projectile> projectiles;
     private Triangle player = new Triangle(5, CANVAS_WIDTH / 2, CANVAS_HEIGHT, 25);
-    //private Octagon octagon = new Octagon(5, CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, 20);
     private int frameNumber;
 
-    
-    public CanvasPanel()
-    {
+
+    public CanvasPanel() {
         asteroids = new ArrayList<>();
+        projectiles = new ArrayList<>();
 
         // Add some asteroids to the list
-        for (int i=0; i < 5; i++) {
-            asteroids.add(new Asteroid(5, CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, i % 3));
-    }
+        for (int i = 0; i < 5; i++) {
+            asteroids.add(new Asteroid(i % Shape.COLORS.length, (int) (Math.random() * CANVAS_WIDTH),
+                    (int) (Math.random() * CANVAS_HEIGHT)));
+        }
 
 
         // Callback for keyboard events
         this.setFocusable(true);
         this.addKeyListener(new myActionListener());
         System.out.println("keyboard event registered");
-        
+
         // Create a render loop
         // Create a Swing Timer that will tick 30 times a second
         // At each tick the ActionListener that was registered via the lambda expression will be invoked
-        Timer renderLoop = new Timer(30, (ActionEvent ev) -> {frameNumber++; Simulate(); repaint();}); // lambda expression for ActionListener implements actionPerformed
+        Timer renderLoop = new Timer(30, (ActionEvent ev) -> {
+            frameNumber++;
+            Simulate();
+            repaint();
+        }); // lambda expression for ActionListener implements actionPerformed
         renderLoop.start();
 
         generateStars();
     }
-    
-    public void Simulate()
-    {
+
+    public void Simulate() {
         for (Asteroid asteroid : asteroids) {
             asteroid.Move();
         }
@@ -64,23 +67,22 @@ public class CanvasPanel extends JPanel
         stars = new ArrayList<Circle>();
 
         Random random = new Random();
-        for(int i = 0; i < 150; i++) {
+        for (int i = 0; i < 150; i++) {
             stars.add(new Circle(5, random.nextInt(800), random.nextInt(400), 1));
         }
     }
 
 
     // This method is called by renderloop
-    public void paintComponent(Graphics g)
-    {
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D)g.create();
+        Graphics2D g2 = (Graphics2D) g.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        
+
         // Set window background to black
         g.setColor(Color.BLACK);
-        g.fillRect(0,0,CANVAS_WIDTH + 2 * X_CORNER, CANVAS_HEIGHT + 2 * Y_CORNER); //draw the black border
-        
+        g.fillRect(0, 0, CANVAS_WIDTH + 2 * X_CORNER, CANVAS_HEIGHT + 2 * Y_CORNER); //draw the black border
+
         // Set canvas background to black
         g.setColor(Color.BLACK);
         g.fillRect(X_CORNER, Y_CORNER, CANVAS_WIDTH, CANVAS_HEIGHT); //make the canvas white
@@ -92,24 +94,20 @@ public class CanvasPanel extends JPanel
             asteroid.draw(g2);
         }
     }
-    
-    public static int getCanvasWidth()
-    {
+
+    public static int getCanvasWidth() {
         return CANVAS_WIDTH;
     }
 
-    public static int getCanvasHeight()
-    {
+    public static int getCanvasHeight() {
         return CANVAS_HEIGHT;
     }
 
-    public static int getCanvasXBorder()
-    {
+    public static int getCanvasXBorder() {
         return X_CORNER;
     }
 
-    public static int getCanvasYBorder()
-    {
+    public static int getCanvasYBorder() {
         return Y_CORNER;
     }
 
@@ -120,15 +118,14 @@ public class CanvasPanel extends JPanel
     public class myActionListener extends KeyAdapter {
         private final Set<Integer> pressedKeys = new HashSet<>();
 
-        public void keyPressed(KeyEvent e)
-        {
-           int keyCode = e.getKeyCode();
-           pressedKeys.add(keyCode);
+        public void keyPressed(KeyEvent e) {
+            int keyCode = e.getKeyCode();
+            pressedKeys.add(keyCode);
 
-           handleKeyInputs();
+            handleKeyInputs();
         }
-        public void keyReleased(KeyEvent e)
-        {
+
+        public void keyReleased(KeyEvent e) {
             int keyCode = e.getKeyCode();
             pressedKeys.remove(keyCode);
 
@@ -147,9 +144,19 @@ public class CanvasPanel extends JPanel
                 player.Rotate(Math.PI / 45);
             }
             if (pressedKeys.contains(KeyEvent.VK_SPACE)) {
-                System.out.println("press space bar");
-                // shoot
+                System.out.println("Press space bar");
+                shootProjectile();
             }
         }
+
+        private void shootProjectile() {
+            // Make sure the list is initialized before adding new projectile
+            if (projectiles == null) {
+                projectiles = new ArrayList<>();
+            }
+            // Create a new projectile and add it to the list
+            projectiles.add(new Projectile(0, player.GetX(), player.GetY(), (int) player.GetDirection(),3, 3));
+        }
+
     }
 }

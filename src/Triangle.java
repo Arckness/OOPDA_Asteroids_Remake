@@ -79,8 +79,13 @@ public class Triangle extends Shape{
         g2d.setTransform(new AffineTransform());
     }
 
-    public double getVelocity() {
-        return velocity;
+    public double getVelocity() { return velocity; }
+
+    public double GetDirection() { return direction; }
+
+    public int GetSideLength()
+    {
+        return sideLength;
     }
 }
 
