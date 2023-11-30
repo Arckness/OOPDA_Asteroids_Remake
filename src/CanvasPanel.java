@@ -58,6 +58,8 @@ public class CanvasPanel extends JPanel {
         for (Asteroid asteroid : asteroids) {
             asteroid.Move();
         }
+
+
     }
 
     /**
