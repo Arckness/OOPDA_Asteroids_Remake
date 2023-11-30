@@ -70,7 +70,7 @@ public class CanvasPanel extends JPanel {
 
         Random random = new Random();
         for (int i = 0; i < 150; i++) {
-            stars.add(new Circle(5, random.nextInt(800), random.nextInt(400), 1));
+            stars.add(new Circle(5, random.nextInt(1000), random.nextInt(600), 1));
         }
     }
 
