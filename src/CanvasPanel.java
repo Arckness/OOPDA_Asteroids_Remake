@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
+import java.util.Iterator;
 
 public class CanvasPanel extends JPanel {
     private final static int X_CORNER = 25;
@@ -59,7 +60,17 @@ public class CanvasPanel extends JPanel {
             asteroid.Move();
         }
 
+        // Move and check bounds for projectiles
+        Iterator<Projectile> iterator = projectiles.iterator();
+        while (iterator.hasNext()) {
+            Projectile projectile = iterator.next();
+            projectile.Move();
 
+            // Remove projectiles that are out of bounds
+            if (projectile.isOutOfBounds()) {
+                iterator.remove();
+            }
+        }
     }
 
     /**
@@ -94,6 +105,10 @@ public class CanvasPanel extends JPanel {
         player.draw(g);
         for (Asteroid asteroid : asteroids) {
             asteroid.draw(g2);
+
+        for (Projectile projectile : projectiles) {
+            projectile.draw(g2);
+        }
         }
     }
 
@@ -156,6 +171,11 @@ public class CanvasPanel extends JPanel {
             if (projectiles == null) {
                 projectiles = new ArrayList<>();
             }
+
+            // Calculate the starting position based on the front of the player
+            double projectileX = player.GetX() + (player.GetSideLength() / 2) * Math.cos(player.GetDirection());
+            double projectileY = player.GetY() + (player.GetSideLength() / 2) * Math.sin(player.GetDirection());
+
             // Create a new projectile and add it to the list
             projectiles.add(new Projectile(0, player.GetX(), player.GetY(), (int) player.GetDirection(),3, 3));
         }

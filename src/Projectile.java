@@ -22,12 +22,13 @@ public class Projectile extends Shape {
         // Update position based on direction and velocity
         xPosition += velocity * Math.cos(direction);
         yPosition += velocity * Math.sin(direction);
+    }
 
-        // Remove the projectile if it goes out of the screen
-        if (xPosition < 0 || xPosition > CanvasPanel.getCanvasWidth() || yPosition < 0 || yPosition > CanvasPanel.getCanvasHeight()) {
-            // Mark the projectile as out of bounds
-            velocity = 0;
-        }
+    /**
+     * Check if the projectile is out of bounds
+     */
+    public boolean isOutOfBounds() {
+        return xPosition < 0 || xPosition > CanvasPanel.getCanvasWidth() || yPosition < 0 || yPosition > CanvasPanel.getCanvasHeight();
     }
 
     @Override
