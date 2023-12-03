@@ -4,7 +4,7 @@ public class Projectile extends Shape {
     private int width;
     private int height;
 
-    public Projectile(int colorIndex, int xPosition, int yPosition, double direction, int width, int height) {
+    public Projectile(int colorIndex, double xPosition, double yPosition, double direction, int width, int height) {
         super(colorIndex, xPosition, yPosition);
         this.direction = direction;
         this.width = width;

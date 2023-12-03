@@ -9,10 +9,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
-import java.util.Iterator;
+
 
 public class CanvasPanel extends JPanel {
     private final static int X_CORNER = 25;
@@ -60,14 +61,13 @@ public class CanvasPanel extends JPanel {
         }
 
         // Move and check bounds for projectiles
-        Iterator<Projectile> iterator = projectiles.iterator();
-        while (iterator.hasNext()) {
-            Projectile projectile = iterator.next();
+        List<Projectile> projectilesCopy = new ArrayList<>(projectiles);
+        for (Projectile projectile : projectilesCopy) {
             projectile.Move();
 
             // Remove projectiles that are out of bounds
             if (projectile.isOutOfBounds()) {
-                iterator.remove();
+                projectiles.remove(projectile);
             }
         }
     }
@@ -172,11 +172,11 @@ public class CanvasPanel extends JPanel {
             }
 
             // Calculate the initial position of the projectile at the front of the spaceship
-            double projectileX = player.GetX() + Math.cos(player.GetDirection()) * player.GetSideLength() / 2;
-            double projectileY = player.GetY() + Math.sin(player.GetDirection()) * player.GetSideLength() / 2;
+            double projectileX = player.GetX() + Math.cos(player.GetDirection()) * player.GetSideLength() / 2 - 94; // random numbers to center
+            double projectileY = player.GetY() + Math.sin(player.GetDirection()) * player.GetSideLength() / 2 - 50;
 
             // Create a new projectile and add it to the list
-            projectiles.add(new Projectile(0, player.GetX(), player.GetY(), player.GetDirection(),3, 3));
+            projectiles.add(new Projectile(0, projectileX, projectileY, player.GetDirection(),3, 3));
         }
 
     }

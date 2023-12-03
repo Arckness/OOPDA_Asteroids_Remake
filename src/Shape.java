@@ -40,7 +40,7 @@ public abstract class Shape {
             new Color(255,  38, 168),
     };
 
-    public Shape(int colorIndex, int xPosition, int yPosition) {
+    public Shape(int colorIndex, double xPosition, double yPosition) {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.colorIndex = colorIndex;
