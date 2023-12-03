@@ -1,7 +1,6 @@
 import java.awt.*;
 
 public class Projectile extends Shape {
-
     private int width;
     private int height;
 

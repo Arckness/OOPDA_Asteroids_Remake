@@ -22,7 +22,7 @@ public class CanvasPanel extends JPanel {
     private ArrayList<Circle> stars;
     private ArrayList<Asteroid> asteroids;
     private ArrayList<Projectile> projectiles;
-    private Triangle player = new Triangle(5, CANVAS_WIDTH / 2, CANVAS_HEIGHT, 25);
+    private Triangle player = new Triangle(5, CANVAS_WIDTH / 2 + 115, CANVAS_HEIGHT - 50, 25);
     private int frameNumber;
 
 
@@ -172,12 +172,12 @@ public class CanvasPanel extends JPanel {
                 projectiles = new ArrayList<>();
             }
 
-            // Calculate the starting position based on the front of the player
-            double projectileX = player.GetX() + (player.GetSideLength() / 2) * Math.cos(player.GetDirection());
-            double projectileY = player.GetY() + (player.GetSideLength() / 2) * Math.sin(player.GetDirection());
+            // Calculate the initial position of the projectile at the front of the spaceship
+            double projectileX = player.GetX() + Math.cos(player.GetDirection()) * player.GetSideLength() / 2;
+            double projectileY = player.GetY() + Math.sin(player.GetDirection()) * player.GetSideLength() / 2;
 
             // Create a new projectile and add it to the list
-            projectiles.add(new Projectile(0, player.GetX(), player.GetY(), (int) player.GetDirection(),3, 3));
+            projectiles.add(new Projectile(0, player.GetX(), player.GetY(), player.GetDirection(),3, 3));
         }
 
     }

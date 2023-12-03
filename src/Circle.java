@@ -48,5 +48,4 @@ public class Circle extends Shape
         g.setColor(color);
         g.fillOval((int)xPosition, (int)yPosition, diameter, diameter);
     }
-       
 }

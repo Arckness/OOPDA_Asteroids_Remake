@@ -37,8 +37,15 @@ public class Triangle extends Shape{
         //Limits velocity
         velocity = Math.min(maxVelocity, velocity);
 
-        //Inertia
-        velocity -= 0.25;
+        // Inertia
+        // velocity -= 0.25;
+
+        // Apply friction to simulate inertia
+        if (velocity > 0) { // if ship is moving right
+            velocity -= 0.5; // gradually decrease the velocity by 0.1
+        } else if (velocity < 0) { // if ship is moving left
+            velocity += 0.5; // gradually decrease the velocity by 0.1
+        }
     }
 
     public void decelerate() {
@@ -79,13 +86,11 @@ public class Triangle extends Shape{
         g2d.setTransform(new AffineTransform());
     }
 
-    public double getVelocity() { return velocity; }
+    public double GetVelocity() { return velocity; }
 
     public double GetDirection() { return direction; }
 
-    public int GetSideLength()
-    {
-        return sideLength;
-    }
+    public int GetSideLength() { return sideLength; }
+
 }
 
