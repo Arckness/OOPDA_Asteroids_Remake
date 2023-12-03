@@ -36,7 +36,6 @@ public class CanvasPanel extends JPanel {
                     (int) (Math.random() * CANVAS_HEIGHT)));
         }
 
-
         // Callback for keyboard events
         this.setFocusable(true);
         this.addKeyListener(new myActionListener());

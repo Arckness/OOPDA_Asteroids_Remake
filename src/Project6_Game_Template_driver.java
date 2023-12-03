@@ -7,6 +7,7 @@
 
 /** TODO
  *  - Inertia ( keep ship moving after key release )
+ *  - Make sure ship does not go out of bounds
  *  - Collisions
  *  - Animated sprite for ship ( fire out back )
  *  - Shooting sounds ( *pew* PEW )
