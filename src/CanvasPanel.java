@@ -25,6 +25,8 @@ public class CanvasPanel extends JPanel {
     private ArrayList<Projectile> projectiles;
     private Triangle player = new Triangle(5, CANVAS_WIDTH / 2 + 115, CANVAS_HEIGHT - 50, 25);
     private int frameNumber;
+    private int score = 0;
+    private int highScore = 0;
 
 
     public CanvasPanel() {
@@ -69,6 +71,11 @@ public class CanvasPanel extends JPanel {
             if (projectile.isOutOfBounds()) {
                 projectiles.remove(projectile);
             }
+
+            // if (projectile.hitAsteroid() {
+            // addScore(100);
+            // remove asteroid
+        //  }
         }
 
         /**
@@ -109,13 +116,17 @@ public class CanvasPanel extends JPanel {
         stars.forEach(star -> star.draw(g2));
 
         player.draw(g);
+
         for (Asteroid asteroid : asteroids) {
             asteroid.draw(g2);
+        }
 
         for (Projectile projectile : projectiles) {
             projectile.draw(g2);
         }
-        }
+
+        g.drawString("Score: " + score , 0, 425);
+
     }
 
     public static int getCanvasWidth() {
@@ -134,6 +145,15 @@ public class CanvasPanel extends JPanel {
         return Y_CORNER;
     }
 
+    public void addScore(int points) {
+        this.score += points;
+    }
+
+    public void setHighScore() {
+        if(this.score > this.highScore) {
+            this.highScore = score;
+        }
+    }
 
     /**
      * Handles all the input into the game
