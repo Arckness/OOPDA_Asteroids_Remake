@@ -70,6 +70,13 @@ public class CanvasPanel extends JPanel {
                 projectiles.remove(projectile);
             }
         }
+
+        /**
+         * This will continuously lower the shot delay acting as a clock while the game is going
+         */
+        if(player.getShotDelay() > 0) {
+            player.rmvShotDelay(1);
+        }
     }
 
     /**
@@ -160,24 +167,28 @@ public class CanvasPanel extends JPanel {
                 player.Rotate(Math.PI / 45);
             }
             if (pressedKeys.contains(KeyEvent.VK_SPACE)) {
-                System.out.println("Press space bar");
                 shootProjectile();
             }
         }
 
         private void shootProjectile() {
-            // Make sure the list is initialized before adding new projectile
-            if (projectiles == null) {
-                projectiles = new ArrayList<>();
+            int delay = player.getShotDelay(); //retrieves the delay from player and makes thing easy read
+
+            if(delay <= 0) {
+                // Make sure the list is initialized before adding new projectile
+                if (projectiles == null) {
+                    projectiles = new ArrayList<>();
+                }
+
+                // Calculate the initial position of the projectile at the front of the spaceship
+                double projectileX = player.GetX() + Math.cos(player.GetDirection()) * player.GetSideLength() / 2 - 94; // random numbers to center
+                double projectileY = player.GetY() + Math.sin(player.GetDirection()) * player.GetSideLength() / 2 - 50;
+
+                // Create a new projectile and add it to the list
+                projectiles.add(new Projectile(0, projectileX, projectileY, player.GetDirection(),3, 3));
+                player.addShotDelay(30); // adds a delay to the shot, change the int if you want it faster/slower
             }
 
-            // Calculate the initial position of the projectile at the front of the spaceship
-            double projectileX = player.GetX() + Math.cos(player.GetDirection()) * player.GetSideLength() / 2 - 94; // random numbers to center
-            double projectileY = player.GetY() + Math.sin(player.GetDirection()) * player.GetSideLength() / 2 - 50;
-
-            // Create a new projectile and add it to the list
-            projectiles.add(new Projectile(0, projectileX, projectileY, player.GetDirection(),3, 3));
         }
-
     }
 }

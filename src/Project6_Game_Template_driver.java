@@ -8,7 +8,6 @@
 /** TODO
  *  - Inertia ( keep ship moving after key release )
  *  - Make sure ship does not go out of bounds
- *  - Add delay to shoot
  *  - Fix the way Projectiles shoot
  *  - Collisions
  *  - Animated sprite for ship ( fire out back )

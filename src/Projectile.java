@@ -1,3 +1,10 @@
+/**
+ * Thing that is shot from ship
+ *
+ * @author (Nicholas Rua, Norah Micciulla)
+ * @version (v1.0, 11-25-2023)
+ */
+
 import java.awt.*;
 
 public class Projectile extends Shape {

@@ -1,3 +1,10 @@
+/**
+ * The rocks that float in the game, shoot and they go boom
+ *
+ * @author (Nicholas Rua, Norah Micciulla)
+ * @version (v1.0, 11-25-2023)
+ */
+
 import java.util.Random;
 import java.awt.*;
 import java.util.ArrayList;

@@ -1,5 +1,8 @@
 /**
  * Triangle Class, the "ship" that the player controls
+ *
+ * @author (Nicholas Rua, Norah Micciulla)
+ * @version (v1.0, 11-25-2023)
  */
 
 import java.awt.*;
@@ -11,6 +14,7 @@ public class Triangle extends Shape{
     private double velocity;
     private double acceleration;
     private static final double maxVelocity = 7;
+    private int shotDelay = 0;
 
     public Triangle(int colorIndex, int xPosition, int yPosition, int sideLength) {
         super(colorIndex, xPosition, yPosition);
@@ -46,6 +50,30 @@ public class Triangle extends Shape{
         } else if (velocity < 0) { // if ship is moving left
             velocity += 0.5; // gradually decrease the velocity by 0.1
         }
+    }
+
+    /**
+     * Getter for delay
+     * @return shotDelay
+     */
+    public int getShotDelay() {
+        return shotDelay;
+    }
+
+    /**
+     * Allows the growth of the delay clock
+     * @param delay
+     */
+    public void addShotDelay(int delay) {
+        this.shotDelay += delay;
+    }
+
+    /**
+     * Allows decay of the shot delay
+     * @param sec
+     */
+    public void rmvShotDelay(int sec) {
+        this.shotDelay -= sec;
     }
 
     public void decelerate() {
