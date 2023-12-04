@@ -169,6 +169,9 @@ public class CanvasPanel extends JPanel {
             if (pressedKeys.contains(KeyEvent.VK_SPACE)) {
                 shootProjectile();
             }
+            if (pressedKeys.contains(KeyEvent.VK_ESCAPE)) {
+                System.exit(0);
+            }
         }
 
         private void shootProjectile() {
