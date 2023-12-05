@@ -91,6 +91,8 @@ public class CanvasPanel extends JPanel {
         if(player.getShotDelay() > 0) {
             player.rmvShotDelay(1);
         }
+
+        player.Move();
     }
 
     /**
@@ -235,8 +237,10 @@ public class CanvasPanel extends JPanel {
          */
         private void handleKeyInputs() {
             if (pressedKeys.contains(KeyEvent.VK_UP)) {
-                player.Accelerate(0.75);
-                player.Move();
+                player.Accelerate(0.75); // when up arrow is pressed apply acceleration
+            }
+            if (!pressedKeys.contains((KeyEvent.VK_UP))) {
+                player.setAcceleration(0); // when up arrow is released turn off acceleration
             }
             if (pressedKeys.contains(KeyEvent.VK_LEFT)) {
                 player.Rotate(-Math.PI / 45);
