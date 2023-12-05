@@ -24,7 +24,7 @@ public class Project6_Game_Template_driver
    
    public static void Game()
    {
-       CanvasFrame canvasFrame = new CanvasFrame();  // construct the window, which will construct a frame (window), and a panel(canvas)
+       CanvasFrame canvasFrame = new CanvasFrame();  // Construct the window, which will construct a frame (window), and a panel(canvas)
 
        while(true) {
            canvasFrame.canvas.Simulate();
