@@ -1,16 +1,25 @@
+import java.awt.*;
 /**
- * Thing that is shot from ship
+ * The Projectile class represents a projectile in the Asteroids game. It extends the Shape class and defines the
+ * behavior and appearance of projectiles.
  *
  * @author (Nicholas Rua, Norah Micciulla)
  * @version (v1.0, 11-25-2023)
  */
-
-import java.awt.*;
-
 public class Projectile extends Shape {
     private int width;
     private int height;
 
+    /**
+     * Constructs a Projectile object with the specified parameters.
+     *
+     * @param colorIndex The index representing the color of the projectile
+     * @param xPosition  The initial x-coordinate position of the projectile
+     * @param yPosition  The initial y-coordinate position of the projectile
+     * @param direction  The initial direction of the projectile in radians
+     * @param width      The width of the projectile
+     * @param height     The height of the projectile
+     */
     public Projectile(int colorIndex, double xPosition, double yPosition, double direction, int width, int height) {
         super(colorIndex, xPosition, yPosition);
         this.direction = direction;
@@ -20,8 +29,8 @@ public class Projectile extends Shape {
     }
 
     /**
-     * Move the projectile based on its direction and velocity.
-     * Also, check if the projectile has gone out of the screen bounds.
+     * Overrides the Move method in Shape.
+     * Moves the projectile based on its direction and velocity.
      */
     @Override
     public void Move() {
@@ -31,12 +40,20 @@ public class Projectile extends Shape {
     }
 
     /**
-     * Check if the projectile is out of bounds
+     * Checks if the projectile is out of bounds.
+     *
+     * @return true if the projectile is out of bounds, false otherwise.
      */
     public boolean isOutOfBounds() {
         return xPosition < 0 || xPosition > CanvasPanel.getCanvasWidth() || yPosition < 0 || yPosition > CanvasPanel.getCanvasHeight();
     }
 
+    /**
+     * Overrides the draw method in Shape.
+     * Draws the projectile on the specified Graphics object.
+     *
+     * @param g The Graphics object on which to draw the projectile.
+     */
     @Override
     public void draw(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;

@@ -1,19 +1,25 @@
-/**
- * The rocks that float in the game, shoot and they go boom
- *
- * @author (Nicholas Rua, Norah Micciulla)
- * @version (v1.0, 11-25-2023)
- */
-
 import java.util.Random;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
+/**
+ * The Asteroid class represents an asteroid object in the Asteroids game. It extends the Shape class and defines the
+ * behavior and appearance of asteroids.
+ *
+ * @author (Nicholas Rua, Norah Micciulla)
+ * @version (v1.0, 11-25-2023)
+ */
 public class Asteroid extends Shape {
     private List<Point> asteroidShape;
 
+    /**
+     * Constructs an Asteroid object with the specified parameters.
+     *
+     * @param colorIndex The index of the color for the asteroid
+     * @param xPosition The initial x-coordinate position of the asteroid.
+     * @param yPosition The initial y-coordinate position of the asteroid.
+     */
     public Asteroid(int colorIndex, int xPosition, int yPosition) {
         super(colorIndex, xPosition, yPosition);
         generateRandomAsteroidShape();
@@ -21,7 +27,7 @@ public class Asteroid extends Shape {
     }
 
     /**
-     * Generates a random shape for the asteroid with a random number of vertices and lengths
+     * Generates a random shape for the asteroid with a random number of vertices and lengths.
      */
     private void generateRandomAsteroidShape() {
         asteroidShape = new ArrayList<>();
@@ -38,6 +44,10 @@ public class Asteroid extends Shape {
         }
     }
 
+    /**
+     * Overrides the Move method in Shape.
+     * Moves the asteroid based on its velocity and direction, and wraps around the screen edges.
+     */
     @Override
     public void Move() {
         xPosition += velocity * Math.cos(direction);
@@ -50,6 +60,12 @@ public class Asteroid extends Shape {
         if (yPosition > CanvasPanel.getCanvasHeight()) yPosition = 0;
     }
 
+    /**
+     * Overrides the draw method in Shape.
+     * Draws the asteroid on the specified Graphics object.
+     *
+     * @param g The Graphics object on which to draw the asteroid.
+     */
     @Override
     public void draw(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;

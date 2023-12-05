@@ -15,15 +15,13 @@
  *  - Scoreboard
  */
 
-public class Project6_Game_Template_driver
-{
+public class Project6_Game_Template_driver {
    public static void main(String[] arg)
    {
        Game();
    }
    
-   public static void Game()
-   {
+   public static void Game() {
        CanvasFrame canvasFrame = new CanvasFrame();  // Construct the window, which will construct a frame (window), and a panel(canvas)
 
        while(true) {

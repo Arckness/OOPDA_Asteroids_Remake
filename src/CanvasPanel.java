@@ -29,7 +29,7 @@ public class CanvasPanel extends JPanel {
     private ArrayList<Circle> stars;
     private ArrayList<Asteroid> asteroids;
     private ArrayList<Projectile> projectiles;
-    private Triangle player = new Triangle(5, CANVAS_WIDTH / 2 + 115, CANVAS_HEIGHT - 50, 25);
+    private Player player = new Player(5, CANVAS_WIDTH / 2 + 115, CANVAS_HEIGHT - 50, 25);
 
     /**
      * Creates a new CanvasPanel object and initializes game elements like asteroids, stars, and the player's spaceship.
@@ -63,9 +63,12 @@ public class CanvasPanel extends JPanel {
     }
 
     /**
-     * Simulates the game logic such as asteroid movement, projectile handling, and shot delay.
+     * Simulates the game logic such as player movement, asteroid movement, projectile handling, and shot delay.
      */
     public void Simulate() {
+        // Move the player
+        player.Move();
+
         // Move asteroids
         for (Asteroid asteroid : asteroids) {
             asteroid.Move();
@@ -84,15 +87,13 @@ public class CanvasPanel extends JPanel {
             // if (projectile.hitAsteroid() {
             // addScore(100);
             // remove asteroid
-        //  }
+            //  }
         }
 
         // Continuously lower the shot delay while the game is ongoing
         if(player.getShotDelay() > 0) {
             player.rmvShotDelay(1);
         }
-
-        player.Move();
     }
 
     /**
@@ -153,45 +154,35 @@ public class CanvasPanel extends JPanel {
      *
      * @return The width of the canvas
      */
-    public static int getCanvasWidth() {
-        return CANVAS_WIDTH;
-    }
+    public static int getCanvasWidth() { return CANVAS_WIDTH; }
 
     /**
      * Returns the height of the canvas.
      *
      * @return The height of the canvas
      */
-    public static int getCanvasHeight() {
-        return CANVAS_HEIGHT;
-    }
+    public static int getCanvasHeight() { return CANVAS_HEIGHT; }
 
     /**
      * Returns the x-coordinate border of the canvas.
      *
      * @return The x-coordinate border of the canvas.
      */
-    public static int getCanvasXBorder() {
-        return X_CORNER;
-    }
+    public static int getCanvasXBorder() { return X_CORNER; }
 
     /**
      * Returns the y-coordinate border of the canvas.
      *
      * @return The y-coordinate border of the canvas.
      */
-    public static int getCanvasYBorder() {
-        return Y_CORNER;
-    }
+    public static int getCanvasYBorder() { return Y_CORNER; }
 
     /**
      * Adds points to the current score.
      *
      * @param points The points to be added to the score
      */
-    public void addScore(int points) {
-        this.score += points;
-    }
+    public void addScore(int points) { this.score += points; }
 
     /**
      * Sets the high score if the current score is higher.

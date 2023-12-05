@@ -17,11 +17,8 @@ public class CanvasFrame
     /**
      * Creates a new CanvasFrame object with the title "Asteroids!". Initializes the frame, sets its default close
      * operation, and adds the game canvas to the frame.
-     *
-     * @return A new CanvasFrame object representing the main frame for the Asteroids game.
      */
-    public CanvasFrame()
-    {
+    public CanvasFrame() {
         frame = new JFrame("Asteroids!"); // Make the JFrame, and set the window bar title
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
