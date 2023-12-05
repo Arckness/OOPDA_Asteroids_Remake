@@ -12,6 +12,7 @@ import java.util.Random;
  */
 public class Asteroid extends Shape {
     private List<Point> asteroidShape;
+    private double boundingCircleRadius;
 
     /**
      * Constructs an Asteroid object with the specified parameters.
@@ -24,6 +25,7 @@ public class Asteroid extends Shape {
         super(colorIndex, xPosition, yPosition);
         generateRandomAsteroidShape();
         this.velocity = (Math.random() * 2 + 1) / 2;
+        calculateBoundingCircleRadius();
     }
 
     /**
@@ -42,6 +44,35 @@ public class Asteroid extends Shape {
             int y = (int) (length * Math.sin(angle));
             asteroidShape.add(new Point(x, y));
         }
+    }
+
+    /**
+     * Calculates the radius of the bounding circle for the collisions
+     */
+    private void calculateBoundingCircleRadius() {
+        double centerX = xPosition;
+        double centerY = yPosition;
+
+        for(Point point : asteroidShape) {
+            centerX += point.x;
+            centerY += point.y;
+        }
+
+        centerX /= asteroidShape.size() + 1;
+        centerY /= asteroidShape.size() + 1;
+
+        double maxDistanceSquared = 0;
+
+        for (Point point : asteroidShape) {
+            double distanceSquared = Math.pow(point.x - centerX, 2) + Math.pow(point.y - centerY, 2);
+            maxDistanceSquared = Math.max(maxDistanceSquared, distanceSquared);
+        }
+
+        boundingCircleRadius = Math.sqrt(maxDistanceSquared);
+    }
+
+    public double getBoundingCircleRadius() {
+        return boundingCircleRadius;
     }
 
     /**

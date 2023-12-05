@@ -1,5 +1,5 @@
 /** TODO
- *  - Make sure ship does not go out of bounds
+ *  - Ship Wrapping
  *  - Fix the way Projectiles shoot
  *  - Collisions
  *  - Animated sprite
