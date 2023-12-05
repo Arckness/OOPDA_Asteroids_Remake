@@ -41,14 +41,8 @@ public class Triangle extends Shape{
         //Limits velocity
         velocity = Math.min(maxVelocity, velocity);
 
-        // Inertia
-        // velocity -= 0.25;
-
-        // Apply friction to simulate inertia
-        if (velocity > 0) { // if ship is moving right
-            velocity -= 0.5; // gradually decrease the velocity by 0.1
-        } else if (velocity < 0) { // if ship is moving left
-            velocity += 0.5; // gradually decrease the velocity by 0.1
+        if(velocity > 0) {
+            decelerate(0.1);
         }
     }
 
@@ -58,6 +52,10 @@ public class Triangle extends Shape{
      */
     public int getShotDelay() {
         return shotDelay;
+    }
+
+    public void setAcceleration(double acceleration) {
+        this.acceleration = 0;
     }
 
     /**
@@ -76,8 +74,10 @@ public class Triangle extends Shape{
         this.shotDelay -= sec;
     }
 
-    public void decelerate() {
-        velocity -= 0.25;
+    public void decelerate(double brake) {
+        if(velocity > 0) {
+            velocity -= brake;
+        }
     }
 
     public void Rotate(double angle) {
