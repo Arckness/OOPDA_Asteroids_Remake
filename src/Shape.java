@@ -79,6 +79,24 @@ public abstract class Shape {
     }
 
     /**
+     * Sets the x position of the shape.
+     *
+     * @param x The new x position to set.
+     */
+    public void SetX(double x) {
+        this.xPosition = x;
+    }
+
+    /**
+     * Sets the y position of the shape.
+     *
+     * @param y The new y position to set.
+     */
+    public void SetY(double y) {
+        this.yPosition = y;
+    }
+
+    /**
      * Abstract method to be implemented by subclasses.
      * Moves the shape according to its specific behavior.
      */

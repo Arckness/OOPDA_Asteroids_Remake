@@ -66,13 +66,13 @@ public class CanvasPanel extends JPanel {
      * Simulates the game logic such as player movement, asteroid movement, projectile handling, and shot delay.
      */
     public void Simulate() {
-        // Move the player
-        player.Move();
-
         // Move asteroids
         for (Asteroid asteroid : asteroids) {
             asteroid.Move();
         }
+
+        // Move the player
+        player.Move();
 
         // Move and check bounds for projectiles
         List<Projectile> projectilesCopy = new ArrayList<>(projectiles);

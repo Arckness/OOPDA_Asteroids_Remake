@@ -37,5 +37,4 @@ public class CanvasFrame
         canvas.setPreferredSize(new Dimension(2 * canvas.getCanvasXBorder() + canvas.getCanvasWidth(),
                 2 * canvas.getCanvasYBorder() + canvas.getCanvasHeight()));
     }
-
 }

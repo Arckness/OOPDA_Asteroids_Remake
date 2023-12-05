@@ -1,20 +1,11 @@
-/**
- * Asteroids Game for project 6 of OOPDA
- *
- * @author (Nicholas Rua, Norah Micciulla)
- * @version (v1.0, 11-25-2023)
- */
-
 /** TODO
- *  - Inertia ( keep ship moving after key release )
  *  - Make sure ship does not go out of bounds
  *  - Fix the way Projectiles shoot
  *  - Collisions
- *  - Animated sprite for ship ( fire out back )
+ *  - Animated sprite
  *  - Shooting sounds ( *pew* PEW )
  *  - Scoreboard
  */
-
 public class Project6_Game_Template_driver {
    public static void main(String[] arg)
    {
