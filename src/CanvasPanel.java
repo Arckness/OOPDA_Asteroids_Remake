@@ -30,6 +30,8 @@ public class CanvasPanel extends JPanel {
     private ArrayList<Asteroid> asteroids;
     private ArrayList<Projectile> projectiles;
     private Player player = new Player(5, CANVAS_WIDTH / 2 + 115, CANVAS_HEIGHT - 50, 25);
+    private Audio shootSound = new Audio();
+
 
     /**
      * Creates a new CanvasPanel object and initializes game elements like asteroids, stars, and the player's spaceship.
@@ -39,6 +41,7 @@ public class CanvasPanel extends JPanel {
         // Initialization of game elements
         asteroids = new ArrayList<>();
         projectiles = new ArrayList<>();
+        shootSound.ReadSoundFile("Pew1.wav");
 
         // Add some asteroids to the list
         for (int i = 0; i < 5; i++) {
@@ -241,8 +244,13 @@ public class CanvasPanel extends JPanel {
             }
             if (pressedKeys.contains(KeyEvent.VK_SPACE)) {
                 shootProjectile();
+                shootSound.Play();
+            }
+            if (!pressedKeys.contains(KeyEvent.VK_SPACE)) {
+                shootSound.Reset();
             }
             if (pressedKeys.contains(KeyEvent.VK_ESCAPE)) {
+                shootSound.Close();
                 System.exit(0);
             }
         }
