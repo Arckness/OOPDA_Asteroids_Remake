@@ -111,8 +111,8 @@ public class Player extends Shape {
      * @param angle The angle by which to rotate the triangle.
      */
     public void Rotate(double angle) {
-        double centerX = xPosition + sideLength / 2;
-        double centerY = yPosition + sideLength / 2;
+        double centerX = xPosition + (double) sideLength / 2;
+        double centerY = yPosition + (double) sideLength / 2;
         xPosition = centerX + (xPosition - centerX) * Math.cos(angle) - (yPosition - centerY) * Math.sin(angle);
         yPosition = centerY + (xPosition - centerX) * Math.sin(angle) + (yPosition - centerY) * Math.cos(angle);
 
@@ -162,7 +162,7 @@ public class Player extends Shape {
 
         // Create an AffineTransform to rotate and translate the player
         AffineTransform transform = new AffineTransform();
-        transform.rotate(direction, xPosition + sideLength / 2, yPosition + sideLength / 2);
+        transform.rotate(direction, xPosition + (double) sideLength / 2, yPosition + (double) sideLength / 2);
         transform.translate(xPosition, yPosition);
 
         Graphics2D g2d = (Graphics2D) g;
