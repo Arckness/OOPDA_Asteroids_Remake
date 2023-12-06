@@ -60,4 +60,12 @@ public class Projectile extends Shape {
         g2d.setColor(Color.WHITE);
         g2d.drawRect((int) xPosition, (int) yPosition, width, height);
     }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
 }
