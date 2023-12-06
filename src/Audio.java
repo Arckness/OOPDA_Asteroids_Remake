@@ -25,9 +25,7 @@ import javax.sound.sampled.SourceDataLine;
  * sound.Close();
  */
 
-public class Audio 
-{
-
+public class Audio {
     private final int BUFFER_SIZE = 128000;
     private File soundFile;
     private String filename;
@@ -38,7 +36,6 @@ public class Audio
     /**
      * @param filename the name of the file that is going to be played
      */
-
     public void ReadSoundFile(String filename)
     {
         this.filename = filename;

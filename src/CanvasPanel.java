@@ -41,7 +41,8 @@ public class CanvasPanel extends JPanel {
         // Initialization of game elements
         asteroids = new ArrayList<>();
         projectiles = new ArrayList<>();
-        //shootSound.ReadSoundFile("Pew1.wav");
+
+        // shootSound.ReadSoundFile("Pew1.wav");
         System.out.println("Pew1.wav read successfully");
 
         // Add some asteroids to the list
@@ -64,6 +65,18 @@ public class CanvasPanel extends JPanel {
         renderLoop.start();
 
         generateStars();
+    }
+
+    /**
+     * Generates a random, set number of stars and initializes them.
+     */
+    public void generateStars() {
+        stars = new ArrayList<Circle>();
+
+        Random random = new Random();
+        for (int i = 0; i < 150; i++) {
+            stars.add(new Circle(5, random.nextInt(1000), random.nextInt(600), 1));
+        }
     }
 
     /**
@@ -101,14 +114,18 @@ public class CanvasPanel extends JPanel {
     }
 
     /**
-     * Generates a random, set number of stars and initializes them.
+     * Adds points to the current score.
+     *
+     * @param points The points to be added to the score
      */
-    public void generateStars() {
-        stars = new ArrayList<Circle>();
+    public void addScore(int points) { this.score += points; }
 
-        Random random = new Random();
-        for (int i = 0; i < 150; i++) {
-            stars.add(new Circle(5, random.nextInt(1000), random.nextInt(600), 1));
+    /**
+     * Sets the high score if the current score is higher.
+     */
+    public void setHighScore() {
+        if(this.score > this.highScore) {
+            this.highScore = score;
         }
     }
 
@@ -180,22 +197,6 @@ public class CanvasPanel extends JPanel {
      * @return The y-coordinate border of the canvas.
      */
     public static int getCanvasYBorder() { return Y_CORNER; }
-
-    /**
-     * Adds points to the current score.
-     *
-     * @param points The points to be added to the score
-     */
-    public void addScore(int points) { this.score += points; }
-
-    /**
-     * Sets the high score if the current score is higher.
-     */
-    public void setHighScore() {
-        if(this.score > this.highScore) {
-            this.highScore = score;
-        }
-    }
 
     /**
      * Handles keyboard inputs for the game.
