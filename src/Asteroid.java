@@ -83,12 +83,6 @@ public class Asteroid extends Shape {
     public void Move() {
         xPosition += velocity * Math.cos(direction);
         yPosition += velocity * Math.sin(direction);
-
-        // Wrap around the screen
-        if (xPosition < 0) xPosition = CanvasPanel.getCanvasWidth();
-        if (xPosition > CanvasPanel.getCanvasWidth()) xPosition = 0;
-        if (yPosition < 0) yPosition = CanvasPanel.getCanvasHeight()+ (2 * CanvasPanel.getCanvasYBorder());
-        if (yPosition > CanvasPanel.getCanvasHeight()+ (2 * CanvasPanel.getCanvasYBorder())) yPosition = 0;
     }
 
     /**

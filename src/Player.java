@@ -40,12 +40,6 @@ public class Player extends Shape {
         // Update the position based on the velocity and direction
         xPosition += velocity * Math.cos(direction);
         yPosition += velocity * Math.sin(direction);
-
-        // Wrap around the screen
-        if (xPosition < 0) xPosition = CanvasPanel.getCanvasWidth() + (2 * CanvasPanel.getCanvasXBorder()) ;
-        if (xPosition > CanvasPanel.getCanvasWidth() + (2 * CanvasPanel.getCanvasXBorder())) xPosition = 0;
-        if (yPosition < 0) yPosition = CanvasPanel.getCanvasHeight() + (2 * CanvasPanel.getCanvasYBorder());
-        if (yPosition > CanvasPanel.getCanvasHeight() + (2 * CanvasPanel.getCanvasYBorder())) yPosition = 0;
     }
 
     /**
