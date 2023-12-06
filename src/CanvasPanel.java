@@ -45,11 +45,7 @@ public class CanvasPanel extends JPanel {
         // shootSound.ReadSoundFile("Pew1.wav");
         System.out.println("Pew1.wav read successfully");
 
-        // Add some asteroids to the list
-        for (int i = 0; i < 5; i++) {
-            asteroids.add(new Asteroid(i % Shape.COLORS.length, (int) (Math.random() * CANVAS_WIDTH),
-                    (int) (Math.random() * CANVAS_HEIGHT)));
-        }
+        generateAsteroids();
 
         // Callback for keyboard events
         this.setFocusable(true);
@@ -100,17 +96,16 @@ public class CanvasPanel extends JPanel {
             if (projectile.isOutOfBounds()) {
                 projectiles.remove(projectile);
             }
-
-            // if (projectile.hitAsteroid() {
-            // addScore(100);
-            // remove asteroid
-            //  }
         }
+
+        checkCollisions();
 
         // Continuously lower the shot delay while the game is ongoing
         if(player.getShotDelay() > 0) {
             player.rmvShotDelay(1);
         }
+
+        generateAsteroids();
     }
 
     /**
@@ -126,6 +121,19 @@ public class CanvasPanel extends JPanel {
     public void setHighScore() {
         if(this.score > this.highScore) {
             this.highScore = score;
+        }
+    }
+
+    /**
+     * Generates the asteroids on screen, makes sure there are at least 5 asteroids on screen at a time and
+     * only places them at the bottom of the screen
+     */
+    public void generateAsteroids() {
+        if(asteroids.size() < 5) {
+            for(int i = 5 - asteroids.size(); i > 0; i--) {
+                asteroids.add(new Asteroid(i % Shape.COLORS.length, (int) (Math.random() * CANVAS_WIDTH),
+                        (CANVAS_HEIGHT + 20)));
+            }
         }
     }
 
@@ -256,28 +264,83 @@ public class CanvasPanel extends JPanel {
                 System.exit(0);
             }
         }
+    }
 
-        /**
-         * Initiates the shooting of a projectile.
-         */
-        private void shootProjectile() {
-            int delay = player.getShotDelay(); // Retrieves the delay from player and makes it easy read
+    /**
+     * Initiates the shooting of a projectile.
+     */
+    private void shootProjectile() {
+        int delay = player.getShotDelay(); // Retrieves the delay from player and makes it easy read
 
-            if(delay <= 0) {
-                // Make sure the list is initialized before adding new projectile
-                if (projectiles == null) {
-                    projectiles = new ArrayList<>();
-                }
-
-                // Calculate the initial position of the projectile at the front of the spaceship
-                double projectileX = player.GetX() + Math.cos(player.GetDirection()) * player.GetSideLength() / 2 - 94; // random numbers to center
-                double projectileY = player.GetY() + Math.sin(player.GetDirection()) * player.GetSideLength() / 2 - 50;
-
-                // Create a new projectile and add it to the list
-                projectiles.add(new Projectile(0, projectileX, projectileY, player.GetDirection(),3, 3));
-                player.addShotDelay(30); // Adds a delay to the shot, change the int if you want it faster/slower
+        if(delay <= 0) {
+            // Make sure the list is initialized before adding new projectile
+            if (projectiles == null) {
+                projectiles = new ArrayList<>();
             }
 
+            // Calculate the initial position of the projectile at the front of the spaceship
+            double projectileX = player.GetX() + Math.cos(player.GetDirection()) * player.GetSideLength() / 2 - 94; // random numbers to center
+            double projectileY = player.GetY() + Math.sin(player.GetDirection()) * player.GetSideLength() / 2 - 50;
+
+            // Create a new projectile and add it to the list
+            projectiles.add(new Projectile(0, projectileX, projectileY, player.GetDirection(),3, 3));
+            player.addShotDelay(30); // Adds a delay to the shot, change the int if you want it faster/slower
+        }
+
+    }
+
+    /**
+     * The method that will be in simulate checks if any of the projectiles hits any of the asteroids
+     */
+    public void checkCollisions() {
+        List<Asteroid> asteroidsCopy = new ArrayList<>(asteroids);
+        List<Projectile> projectilesCopy = new ArrayList<>(projectiles);
+
+        for (Asteroid asteroid : asteroidsCopy) {
+            for (Projectile projectile : projectilesCopy) {
+                if (isCollision(asteroid, projectile)) {
+                    // Handle the collision
+                    handleCollision(asteroid, projectile);
+
+                    // Remove asteroid and projectile from their respective lists
+                    asteroids.remove(asteroid);
+                    projectiles.remove(projectile);
+
+                    // Update score
+                    addScore(100);
+                }
+            }
         }
     }
+
+    /**
+     * Actually checks if the projectile and asteroid collides
+     *
+     * @param asteroid
+     * @param projectile
+     * @return boolean
+     */
+    private boolean isCollision(Asteroid asteroid, Projectile projectile) {
+        double asteroidRadius = asteroid.getBoundingCircleRadius();
+        double projectileRadius = (double) Math.max(projectile.getWidth(), projectile.getHeight()) / 2;
+
+        // Calculate the distance between the centers of the bounding circles
+        double distance = Math.sqrt(Math.pow(asteroid.GetX() - projectile.GetX(), 2) +
+                Math.pow(asteroid.GetY() - projectile.GetY(), 2));
+
+        // Check if the distance is less than the sum of the radii
+        return distance < (asteroidRadius + projectileRadius);
+    }
+
+    /**
+     * Just removes each of the colliding objects
+     *
+     * @param asteroid
+     * @param projectile
+     */
+    private void handleCollision(Asteroid asteroid, Projectile projectile) {
+        asteroids.remove(asteroid);
+        projectiles.remove(projectile);
+    }
+
 }

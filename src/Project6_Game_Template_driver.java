@@ -1,10 +1,8 @@
 /** TODO
  *  - Ship Wrapping
  *  - Fix the way Projectiles shoot
- *  - Collisions
  *  - Animated sprite
  *  - Shooting sounds ( *pew* PEW )
- *  - Scoreboard
  */
 public class Project6_Game_Template_driver {
    public static void main(String[] arg)
