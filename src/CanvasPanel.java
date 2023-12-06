@@ -148,13 +148,9 @@ public class CanvasPanel extends JPanel {
         Graphics2D g2 = (Graphics2D) g.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // Set window background to black
-        g.setColor(Color.BLACK);
-        g.fillRect(0, 0, CANVAS_WIDTH + 2 * X_CORNER, CANVAS_HEIGHT + 2 * Y_CORNER); //draw the black border
-
         // Set canvas background to black
         g.setColor(Color.BLACK);
-        g.fillRect(X_CORNER, Y_CORNER, CANVAS_WIDTH, CANVAS_HEIGHT); //make the canvas white
+        g.fillRect(0, 0,CANVAS_WIDTH + (2 * X_CORNER), CANVAS_HEIGHT + (2 * Y_CORNER)); //make the canvas black
 
         // Draw stars
         stars.forEach(star -> star.draw(g2));
@@ -173,7 +169,7 @@ public class CanvasPanel extends JPanel {
         }
 
         // Display the score
-        g.drawString("Score: " + score , 0, 425);
+        g.drawString("Score: " + score , 15, 425);
     }
 
     // Getters for canvas dimensions and borders

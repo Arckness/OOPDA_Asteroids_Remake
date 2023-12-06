@@ -87,8 +87,8 @@ public class Asteroid extends Shape {
         // Wrap around the screen
         if (xPosition < 0) xPosition = CanvasPanel.getCanvasWidth();
         if (xPosition > CanvasPanel.getCanvasWidth()) xPosition = 0;
-        if (yPosition < 0) yPosition = CanvasPanel.getCanvasHeight();
-        if (yPosition > CanvasPanel.getCanvasHeight()) yPosition = 0;
+        if (yPosition < 0) yPosition = CanvasPanel.getCanvasHeight()+ (2 * CanvasPanel.getCanvasYBorder());
+        if (yPosition > CanvasPanel.getCanvasHeight()+ (2 * CanvasPanel.getCanvasYBorder())) yPosition = 0;
     }
 
     /**
