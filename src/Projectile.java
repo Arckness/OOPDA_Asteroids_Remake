@@ -43,6 +43,7 @@ public class Projectile extends Shape {
         // Update position based on direction and velocity
         xPosition += velocity * Math.cos(direction);
         yPosition += velocity * Math.sin(direction);
+
     }
 
     /**

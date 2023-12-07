@@ -1,15 +1,14 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.Timer;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+
 /**
  *  The CanvasPanel class represents the drawing canvas for the Asteroids game. Game elements such as stars, asteroids,
  *  the player's spaceship, and projectiles are rendered here as well.
@@ -110,13 +109,14 @@ public class CanvasPanel extends JPanel {
         player.Move();
 
         // Move and check bounds for projectiles
-        List<Projectile> projectilesCopy = new ArrayList<>(projectiles);
-        for (Projectile projectile : projectilesCopy) {
+        Iterator<Projectile> projectileIterator = projectiles.iterator();
+        while (projectileIterator.hasNext()) {
+            Projectile projectile = projectileIterator.next();
             projectile.Move();
 
             // Remove projectiles that are out of bounds
             if (projectile.isOutOfBounds()) {
-                projectiles.remove(projectile);
+                projectileIterator.remove();
             }
         }
 
