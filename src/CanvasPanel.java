@@ -43,7 +43,7 @@ public class CanvasPanel extends JPanel {
         projectiles = new ArrayList<>();
 
         // shootSound.ReadSoundFile("Pew1.wav");
-        System.out.println("Pew1.wav read successfully");
+        //System.out.println("Pew1.wav read successfully");
 
         generateAsteroids();
 
@@ -245,10 +245,10 @@ public class CanvasPanel extends JPanel {
                 player.setAcceleration(0); // when up arrow is released turn off acceleration
             }
             if (pressedKeys.contains(KeyEvent.VK_LEFT)) {
-                player.Rotate(-Math.PI / 45);
+                player.Rotate(-Math.PI / 30);
             }
             if (pressedKeys.contains(KeyEvent.VK_RIGHT)) {
-                player.Rotate(Math.PI / 45);
+                player.Rotate(Math.PI / 30);
             }
             if (pressedKeys.contains(KeyEvent.VK_SPACE)) {
                 shootProjectile();
@@ -276,9 +276,12 @@ public class CanvasPanel extends JPanel {
                 projectiles = new ArrayList<>();
             }
 
-            // Calculate the initial position of the projectile at the front of the spaceship
-            double projectileX = player.GetX() + Math.cos(player.GetDirection()) * player.GetSideLength() / 2 - 94; // random numbers to center
-            double projectileY = player.GetY() + Math.sin(player.GetDirection()) * player.GetSideLength() / 2 - 50;
+            // Calculate the offset from the center of the player's ship
+            double offset = (double) player.GetSideLength() / 2;
+
+            // Calculate the starting position based on the center of the player
+            double projectileX = player.GetX() + offset * Math.cos(player.GetDirection());
+            double projectileY = player.GetY() + offset * Math.sin(player.GetDirection());
 
             // Create a new projectile and add it to the list
             projectiles.add(new Projectile(0, projectileX, projectileY, player.GetDirection(),3, 3));
@@ -340,4 +343,5 @@ public class CanvasPanel extends JPanel {
         asteroids.remove(asteroid);
         projectiles.remove(projectile);
     }
+
 }

@@ -83,7 +83,7 @@ public abstract class Shape {
      *
      * @param x The new x position to set.
      */
-    public void SetX(double x) {
+    public void setX(double x) {
         this.xPosition = x;
     }
 
@@ -92,7 +92,7 @@ public abstract class Shape {
      *
      * @param y The new y position to set.
      */
-    public void SetY(double y) {
+    public void setY(double y) {
         this.yPosition = y;
     }
 
