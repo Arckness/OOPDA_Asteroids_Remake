@@ -96,6 +96,10 @@ public abstract class Shape {
         this.yPosition = y;
     }
 
+    public double getBoundingCircleRadius() {
+        return 0; // Default implementation, override in subclasses
+    }
+
     /**
      * Abstract method to be implemented by subclasses.
      * Moves the shape according to its specific behavior.

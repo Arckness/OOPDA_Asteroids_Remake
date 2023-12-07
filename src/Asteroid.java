@@ -12,7 +12,6 @@ import java.util.Random;
  */
 public class Asteroid extends Shape {
     private List<Point> asteroidShape;
-    private double boundingCircleRadius;
 
     /**
      * Constructs an Asteroid object with the specified parameters.
@@ -25,7 +24,6 @@ public class Asteroid extends Shape {
         super(colorIndex, xPosition, yPosition);
         generateRandomAsteroidShape();
         this.velocity = (Math.random() * 2 + 1) / 2;
-        boundingCircleRadius = getBoundingCircleRadius();
     }
 
     /**
@@ -51,6 +49,7 @@ public class Asteroid extends Shape {
      *
      * @return boundingCircleRadius
      */
+    @Override
     public double getBoundingCircleRadius() {
         double maxDistanceSquared = 0;
 
@@ -94,8 +93,8 @@ public class Asteroid extends Shape {
 
         g2d.drawPolygon(xPoints, yPoints, asteroidShape.size());
 
-         // UNCOMMENT THIS TO SHOW BOUNDING CIRCLE
-        g2d.drawOval((int) (xPosition - boundingCircleRadius), (int) (yPosition - boundingCircleRadius),
-                (int) (2 * boundingCircleRadius), (int) (2 * boundingCircleRadius));
+        // UNCOMMENT THIS TO SHOW BOUNDING CIRCLE
+        g2d.drawOval((int) (xPosition - getBoundingCircleRadius()), (int) (yPosition - getBoundingCircleRadius()),
+        (int) (2 * getBoundingCircleRadius()), (int) (2 * getBoundingCircleRadius()));
     }
 }

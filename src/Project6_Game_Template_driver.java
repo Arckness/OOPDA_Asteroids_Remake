@@ -1,5 +1,4 @@
 /** TODO
- *  - Make it so Asteroids don't overlap
  *  - Animated sprite
  *  - Shooting sounds ( *pew* PEW )
  */

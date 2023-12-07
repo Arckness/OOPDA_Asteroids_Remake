@@ -29,6 +29,12 @@ public class Player extends Shape {
         acceleration = 0;
     }
 
+    @Override
+    public double getBoundingCircleRadius() {
+        // For simplicity, we'll return the side length divided by 2
+        return sideLength / 2.0;
+    }
+
     /**
      * Overrides the Move method in Shape.
      * Moves the player based on its direction and velocity.
@@ -175,6 +181,10 @@ public class Player extends Shape {
         g.drawPolygon(xPoints, yPoints, 3);
 
         g2d.setTransform(new AffineTransform());
+
+        // UNCOMMENT THIS TO SHOW BOUNDING CIRCLE
+        g2d.drawOval((int) (xPosition - getBoundingCircleRadius()), (int) (yPosition - getBoundingCircleRadius()),
+                (int) (2 * getBoundingCircleRadius()), (int) (2 * getBoundingCircleRadius()));
     }
 }
 

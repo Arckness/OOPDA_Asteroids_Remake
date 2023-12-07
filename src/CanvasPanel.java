@@ -71,7 +71,7 @@ public class CanvasPanel extends JPanel {
 
         Random random = new Random();
         for (int i = 0; i < 150; i++) {
-            stars.add(new Circle(5, random.nextInt(825), random.nextInt(425), 1));
+            stars.add(new Circle(5, random.nextInt(1000), random.nextInt(600), 1));
         }
     }
 
@@ -110,7 +110,6 @@ public class CanvasPanel extends JPanel {
 
         generateAsteroids();
     }
-
 
     /**
      * Adds points to the current score.
@@ -304,45 +303,77 @@ public class CanvasPanel extends JPanel {
                     // Handle the collision
                     handleCollision(asteroid, projectile);
 
-                    // Remove asteroid and projectile from their respective lists
-                    asteroids.remove(asteroid);
-                    projectiles.remove(projectile);
-
                     // Update score
                     addScore(50);
                 }
             }
         }
+        // Check collisions between player and asteroids
+        for (Asteroid asteroid : asteroidsCopy) {
+            if (isCollision(asteroid, player)) {
+                    handlePlayerCollision();
+            }
+        }
+    }
+
+    private void handlePlayerCollision() {
+        // Set the score to zero
+        score = 0;
+
+        // Add any additional actions you want to perform when the player collides with an asteroid
+
+        // For example, you can display a game over message
+        gameOver();
+    }
+
+    private void gameOver() {
+        Graphics g = getGraphics();
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Arial", Font.BOLD, 36));
+        FontMetrics fontMetrics = g.getFontMetrics();
+        String gameOverMessage = "Game Over!";
+        int x = (getCanvasWidth() - fontMetrics.stringWidth(gameOverMessage)) / 2;
+        int y = getCanvasHeight() / 2;
+        g.drawString(gameOverMessage, x, y);
+
+        // Exit the system when the game is over
+        System.exit(0);
     }
 
     /**
-     * Actually checks if the projectile and asteroid collides
+     * Actually checks if the objects collides
      *
-     * @param asteroid
-     * @param projectile
+     * @param obj1
+     * @param obj2
      * @return boolean
      */
-    private boolean isCollision(Asteroid asteroid, Projectile projectile) {
-        double asteroidRadius = asteroid.getBoundingCircleRadius();
-        double projectileRadius = (double) Math.max(projectile.getWidth(), projectile.getHeight()) / 2;
+    private boolean isCollision(Shape obj1, Shape obj2) {
+        double radius1 = obj1.getBoundingCircleRadius();
+        double radius2 = obj2.getBoundingCircleRadius();
 
         // Calculate the distance between the centers of the bounding circles
-        double distance = Math.sqrt(Math.pow(asteroid.GetX() - projectile.GetX(), 2) +
-                Math.pow(asteroid.GetY() - projectile.GetY(), 2));
+        double distance = Math.sqrt(Math.pow(obj1.GetX() - obj2.GetX(), 2) +
+                Math.pow(obj1.GetY() - obj2.GetY(), 2));
 
         // Check if the distance is less than the sum of the radii
-        return distance < (asteroidRadius + projectileRadius);
+        return distance < (radius1 + radius2);
     }
 
     /**
      * Just removes each of the colliding objects
      *
-     * @param asteroid
-     * @param projectile
+     * @param obj1
+     * @param obj2
      */
-    private void handleCollision(Asteroid asteroid, Projectile projectile) {
-        asteroids.remove(asteroid);
-        projectiles.remove(projectile);
+    private void handleCollision(Shape obj1, Shape obj2) {
+        if (obj1 instanceof Player || obj2 instanceof Player) {
+            // Handle collision involving the player
+            handlePlayerCollision();
+        } else {
+            // Handle collision involving other objects (e.g., projectiles, asteroids)
+            asteroids.remove(obj1);
+            projectiles.remove(obj2);
+        }
     }
 
     /**

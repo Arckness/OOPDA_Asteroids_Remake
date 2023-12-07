@@ -28,6 +28,12 @@ public class Projectile extends Shape {
         this.velocity = 10; // Set initial velocity
     }
 
+    @Override
+    public double getBoundingCircleRadius() {
+        // Return the maximum of width and height divided by 2
+        return Math.max(width, height) / 2.0;
+    }
+
     /**
      * Overrides the Move method in Shape.
      * Moves the projectile based on its direction and velocity.
@@ -59,6 +65,10 @@ public class Projectile extends Shape {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(Color.WHITE);
         g2d.drawRect((int) xPosition, (int) yPosition, width, height);
+
+        // UNCOMMENT THIS TO SHOW BOUNDING CIRCLE
+        g2d.drawOval((int) (xPosition - getBoundingCircleRadius()), (int) (yPosition - getBoundingCircleRadius()),
+        (int) (2 * getBoundingCircleRadius()), (int) (2 * getBoundingCircleRadius()));
     }
 
     public int getWidth() {
