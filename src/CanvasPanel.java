@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.util.*;
 import java.util.List;
 import java.util.Random;
-
 /**
  *  The CanvasPanel class represents the drawing canvas for the Asteroids game. Game elements such as stars, asteroids,
  *  the player's spaceship, and projectiles are rendered here as well.
@@ -52,6 +51,7 @@ public class CanvasPanel extends JPanel {
         asteroids = new ArrayList<>();
         projectiles = new ArrayList<>();
 
+        // Reads in the sound files
         shootSound1.ReadSoundFile("src/audio/Pew1.wav");
         System.out.println("Pew1.wav read successfully");
         shootSound2.ReadSoundFile("src/audio/Pew2.wav");
@@ -105,7 +105,8 @@ public class CanvasPanel extends JPanel {
     }
 
     /**
-     * Simulates the game logic such as player movement, asteroid movement, projectile handling, and shot delay.
+     * Simulates the game logic such as the game state, player movement, asteroid movement, projectile handling,
+     * and shot delay. It also calls the player and asteroids to wrap around the screen.
      */
     public void Simulate() {
        if(state == gameState.playing) {
@@ -164,8 +165,8 @@ public class CanvasPanel extends JPanel {
     }
 
     /**
-     * Generates the asteroids on screen, makes sure there are at least 5 asteroids on screen at a time and
-     * only places them at the bottom of the screen
+     * Generates the asteroids, makes sure there are at least 5 asteroids on the screen at a time and
+     * places them at the bottom of the screen.
      */
     public void generateAsteroids() {
         if(asteroids.size() < 5) {
@@ -315,7 +316,6 @@ public class CanvasPanel extends JPanel {
             }
         }
             if (pressedKeys.contains(KeyEvent.VK_ESCAPE)) {
-              //  shootSound.Close();
                 System.exit(0);
             }
         }
@@ -347,7 +347,7 @@ public class CanvasPanel extends JPanel {
     }
 
     /**
-     * The method that will be in simulate checks if any of the projectiles hits any of the asteroids
+     * Handles collision between game objects.
      */
     public void checkCollisions() {
         List<Asteroid> asteroidsCopy = new ArrayList<>(asteroids);
@@ -372,6 +372,9 @@ public class CanvasPanel extends JPanel {
         }
     }
 
+    /**
+     * Handles a collision between the player and an asteroid.
+     */
     private void handlePlayerCollision() {
         if(highScore < score) {
             highScore = score;
@@ -385,6 +388,9 @@ public class CanvasPanel extends JPanel {
         }
     }
 
+    /**
+     * Displays the 'Game Over' message on the canvas.
+     */
     private void gameOver() {
         Graphics g = getGraphics();
         g.setColor(Color.WHITE);
@@ -397,11 +403,11 @@ public class CanvasPanel extends JPanel {
     }
 
     /**
-     * Actually checks if the objects collides
+     * Checks if two shapes are colliding.
      *
-     * @param obj1
-     * @param obj2
-     * @return boolean
+     * @param obj1 The first shape
+     * @param obj2 The second shape
+     * @return True if the shapes are colliding, false otherwise
      */
     private boolean isCollision(Shape obj1, Shape obj2) {
         double radius1 = obj1.getBoundingCircleRadius();
@@ -416,10 +422,10 @@ public class CanvasPanel extends JPanel {
     }
 
     /**
-     * Just removes each of the colliding objects
+     * Handles the collision between two shapes and then removes the collided objects.
      *
-     * @param obj1
-     * @param obj2
+     * @param obj1 The first shape
+     * @param obj2 The second shape
      */
     private void handleCollision(Shape obj1, Shape obj2) {
         if (obj1 instanceof Player || obj2 instanceof Player) {
@@ -433,9 +439,9 @@ public class CanvasPanel extends JPanel {
     }
 
     /**
-     * Checks all asteroids in the game
+     * Checks all asteroids in the game for wrapping around the screen borders.
      *
-     * @param asteroids
+     * @param asteroids The list of asteroids to check
      */
     public void wrapObjects(ArrayList<Asteroid> asteroids) {
         for(Asteroid asteroid : asteroids) {
@@ -446,9 +452,9 @@ public class CanvasPanel extends JPanel {
     }
 
     /**
-     * Wraps an object in the game if it goes off-screen
+     * Wraps an object in the game if it goes off-screen.
      *
-     * @param obj
+     * @param obj The object to wrap
      */
     private void wrapObject(Shape obj) {
         if (obj.GetX() < 0) obj.setX(CanvasPanel.getCanvasWidth()+200);
@@ -456,5 +462,4 @@ public class CanvasPanel extends JPanel {
         if (obj.GetY() < 0) obj.setY(CanvasPanel.getCanvasHeight()+100);
         if (obj.GetY() > CanvasPanel.getCanvasHeight()+ 100) obj.setY(0);
     }
-
 }

@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-
 /**
  * The CanvasFrame class represents the main frame for the Asteroids game and provides a window to display the game
  * canvas.
@@ -22,15 +21,18 @@ public class CanvasFrame {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         canvas = new CanvasPanel();  // CanvasPanel extends a JPanel
-        setPreferredSize();
+        setPreferredSize(); // Set the size of the canvas
         frame.getContentPane().add(canvas); // Put the canvas (JPanel) in the frame
 
         frame.pack(); // Make everything the preferred size
         frame.setVisible(true); // Show the frame
     }
 
+    /**
+     * Sets the preferred size of the canvas based on its width and height, and is called after creating the CanvasFrame
+     * to ensure the canvas has the correct size.
+     */
     public static void setPreferredSize() {
         canvas.setPreferredSize(new Dimension(canvas.getCanvasWidth(), canvas.getCanvasHeight()));
-        canvas.setBackground(Color.RED);
     }
 }
