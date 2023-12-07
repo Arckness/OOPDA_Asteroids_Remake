@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import java.util.List;
+import java.util.Random;
 
 /**
  *  The CanvasPanel class represents the drawing canvas for the Asteroids game. Game elements such as stars, asteroids,
@@ -28,13 +29,16 @@ public class CanvasPanel extends JPanel {
     private int frameNumber;
     private int score = 0;
     private int highScore = 0;
-
+    private int lives = 3;
 
     private ArrayList<Circle> stars;
     private ArrayList<Asteroid> asteroids;
     private ArrayList<Projectile> projectiles;
     private Player player = new Player(5, CANVAS_WIDTH / 2 + 80, CANVAS_HEIGHT - 150, 25);
-    private Audio shootSound = new Audio();
+    private Audio shootSound1 = new Audio();
+    private Audio shootSound2 = new Audio();
+    private gameState state;
+    private Random random = new Random();
 
 
     /**
@@ -42,12 +46,16 @@ public class CanvasPanel extends JPanel {
      * Also sets up the event listener and starts the render loop.
      */
     public CanvasPanel() {
+        state = gameState.playing;
+
         // Initialization of game elements
         asteroids = new ArrayList<>();
         projectiles = new ArrayList<>();
 
-        // shootSound.ReadSoundFile("Pew1.wav");
-        //System.out.println("Pew1.wav read successfully");
+        shootSound1.ReadSoundFile("src/audio/Pew1.wav");
+        System.out.println("Pew1.wav read successfully");
+        shootSound2.ReadSoundFile("src/audio/Pew2.wav");
+        System.out.println("Pew2.wav read successfully");
 
         generateAsteroids();
 
@@ -100,13 +108,15 @@ public class CanvasPanel extends JPanel {
      * Simulates the game logic such as player movement, asteroid movement, projectile handling, and shot delay.
      */
     public void Simulate() {
-        // Move asteroids
-        for (Asteroid asteroid : asteroids) {
-            asteroid.Move();
-        }
+       if(state == gameState.playing) {
+           // Move asteroids
+           for (Asteroid asteroid : asteroids) {
+               asteroid.Move();
+           }
 
-        // Move the player
-        player.Move();
+           // Move the player
+           player.Move();
+       }
 
         // Move and check bounds for projectiles
         Iterator<Projectile> projectileIterator = projectiles.iterator();
@@ -128,6 +138,10 @@ public class CanvasPanel extends JPanel {
         // Continuously lower the shot delay while the game is ongoing
         if(player.getShotDelay() > 0) {
             player.rmvShotDelay(1);
+        }
+
+        if(lives == 0) {
+            state = gameState.end;
         }
 
         generateAsteroids();
@@ -193,8 +207,16 @@ public class CanvasPanel extends JPanel {
             projectile.draw(g2);
         }
 
-        // Display the score
+        // Display the scores
         g.drawString("Score: " + score , 5, 15);
+        if(highScore != 0) {
+            g.drawString("High Score: " + highScore, 80, 15);
+        }
+        g.drawString("Lives : " + lives, 750, 15);
+
+        if(state == gameState.end) {
+            gameOver();
+        }
 
         for (Shape2D shape : spriteList)
         {
@@ -266,6 +288,7 @@ public class CanvasPanel extends JPanel {
          * Handles key inputs based on the pressed keys.
          */
         private void handleKeyInputs() {
+            if(state == gameState.playing) {
             if (pressedKeys.contains(KeyEvent.VK_UP)) {
                 player.Accelerate(0.75); // when up arrow is pressed apply acceleration
             }
@@ -280,11 +303,17 @@ public class CanvasPanel extends JPanel {
             }
             if (pressedKeys.contains(KeyEvent.VK_SPACE)) {
                 shootProjectile();
-               // shootSound.Play();
+                 if(random.nextInt(1,10) % 2 > 0) {
+                     shootSound1.Play();
+                 } else {
+                     shootSound2.Play();
+                 }
             }
             if (!pressedKeys.contains(KeyEvent.VK_SPACE)) {
-              //  shootSound.Reset();
+                  shootSound1.Reset();
+                  shootSound2.Reset();
             }
+        }
             if (pressedKeys.contains(KeyEvent.VK_ESCAPE)) {
               //  shootSound.Close();
                 System.exit(0);
@@ -344,13 +373,16 @@ public class CanvasPanel extends JPanel {
     }
 
     private void handlePlayerCollision() {
+        if(highScore < score) {
+            highScore = score;
+        }
+
         // Set the score to zero
         score = 0;
 
-        // Add any additional actions you want to perform when the player collides with an asteroid
-
-        // For example, you can display a game over message
-        gameOver();
+        if(lives >= 0) {
+            this.lives -= 1;
+        }
     }
 
     private void gameOver() {
@@ -362,9 +394,6 @@ public class CanvasPanel extends JPanel {
         int x = (getCanvasWidth() - fontMetrics.stringWidth(gameOverMessage)) / 2;
         int y = getCanvasHeight() / 2;
         g.drawString(gameOverMessage, x, y);
-
-        // Exit the system when the game is over
-        // System.exit(0);
     }
 
     /**

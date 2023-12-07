@@ -68,8 +68,8 @@ public class Projectile extends Shape {
         g2d.drawRect((int) xPosition, (int) yPosition, width, height);
 
         // UNCOMMENT THIS TO SHOW BOUNDING CIRCLE
-        g2d.drawOval((int) (xPosition - getBoundingCircleRadius()), (int) (yPosition - getBoundingCircleRadius()),
-        (int) (2 * getBoundingCircleRadius()), (int) (2 * getBoundingCircleRadius()));
+        //g2d.drawOval((int) (xPosition - getBoundingCircleRadius()), (int) (yPosition - getBoundingCircleRadius()),
+        //(int) (2 * getBoundingCircleRadius()), (int) (2 * getBoundingCircleRadius()));
     }
 
     public int getWidth() {

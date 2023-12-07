@@ -107,18 +107,18 @@ public class Audio {
     {
         int nBytesRead = 0;
         byte[] abData = new byte[BUFFER_SIZE];
-        System.out.println("init len " + abData.length);
+        //System.out.println("init len " + abData.length);
         while (nBytesRead != -1) {
             try {
                 nBytesRead = audioStream.read(abData, 0, abData.length);
-                System.out.println("nBytesRead " + nBytesRead);
+                //System.out.println("nBytesRead " + nBytesRead);
             } catch (IOException e) {
                 e.printStackTrace();
             }
             if (nBytesRead >= 0) {
                 @SuppressWarnings("unused")
                 int nBytesWritten = sourceLine.write(abData, 0, nBytesRead);
-                System.out.println("nBytesWritten " + nBytesWritten);
+                //System.out.println("nBytesWritten " + nBytesWritten);
             }
         }
     }   

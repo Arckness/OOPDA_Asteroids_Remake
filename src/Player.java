@@ -183,8 +183,8 @@ public class Player extends Shape {
         g2d.setTransform(new AffineTransform());
 
         // UNCOMMENT THIS TO SHOW BOUNDING CIRCLE
-        g2d.drawOval((int) (xPosition - getBoundingCircleRadius()), (int) (yPosition - getBoundingCircleRadius()),
-                (int) (2 * getBoundingCircleRadius()), (int) (2 * getBoundingCircleRadius()));
+        //g2d.drawOval((int) (xPosition - getBoundingCircleRadius()), (int) (yPosition - getBoundingCircleRadius()),
+        //        (int) (2 * getBoundingCircleRadius()), (int) (2 * getBoundingCircleRadius()));
     }
 }
 

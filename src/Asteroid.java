@@ -94,7 +94,7 @@ public class Asteroid extends Shape {
         g2d.drawPolygon(xPoints, yPoints, asteroidShape.size());
 
         // UNCOMMENT THIS TO SHOW BOUNDING CIRCLE
-        g2d.drawOval((int) (xPosition - getBoundingCircleRadius()), (int) (yPosition - getBoundingCircleRadius()),
-        (int) (2 * getBoundingCircleRadius()), (int) (2 * getBoundingCircleRadius()));
+        //g2d.drawOval((int) (xPosition - getBoundingCircleRadius()), (int) (yPosition - getBoundingCircleRadius()),
+        //(int) (2 * getBoundingCircleRadius()), (int) (2 * getBoundingCircleRadius()));
     }
 }

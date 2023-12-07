@@ -1,8 +1,7 @@
 /** TODO
- *  - Animated sprite
- *  - Shooting sounds ( *pew* PEW )
+ *  - Dying Delay
  */
-public class Project6_Game_Template_driver {
+public class Project6_Game_Template_driver    {
    public static void main(String[] arg)
    {
        Game();
