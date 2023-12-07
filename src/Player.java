@@ -13,6 +13,7 @@ public class Player extends Shape {
     private double acceleration; // The acceleration applied to the player
     private static final double maxVelocity = 7; // The maximum allowed velocity
     private int shotDelay = 0; // The delay between consecutive shots
+    private int hitDelay = 0; // The delay between getting hit by asteroid
 
     /**
      * Constructs a Player object with the specified parameters.
@@ -75,6 +76,15 @@ public class Player extends Shape {
     }
 
     /**
+     * Getter for the hit delay
+     *
+     * @return hitDelay
+     */
+    public int getHitDelay() {
+        return hitDelay;
+    }
+
+    /**
      * Sets the acceleration of the player.
      *
      * @param acceleration The acceleration to be set.
@@ -99,6 +109,24 @@ public class Player extends Shape {
      */
     public void rmvShotDelay(int sec) {
         this.shotDelay -= sec;
+    }
+
+    /**
+     * Adds Delay
+     *
+     * @param delay
+     */
+    public void addHitDelay(int delay) {
+        this.hitDelay = delay;
+    }
+
+    /**
+     * Removes delay
+     *
+     * @param sec
+     */
+    public void rmvHitDelay(int sec) {
+        this.hitDelay -= sec;
     }
 
     /**

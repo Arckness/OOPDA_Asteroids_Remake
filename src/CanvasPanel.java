@@ -141,6 +141,10 @@ public class CanvasPanel extends JPanel {
             player.rmvShotDelay(1);
         }
 
+        if(player.getHitDelay() > 0) {
+            player.rmvHitDelay(1);
+        }
+
         if(lives == 0) {
             state = gameState.end;
         }
@@ -216,7 +220,7 @@ public class CanvasPanel extends JPanel {
         g.drawString("Lives : " + lives, 750, 15);
 
         if(state == gameState.end) {
-            gameOver();
+            gameOver(g);
         }
 
         for (Shape2D shape : spriteList)
@@ -376,6 +380,8 @@ public class CanvasPanel extends JPanel {
      * Handles a collision between the player and an asteroid.
      */
     private void handlePlayerCollision() {
+        int delay = player.getHitDelay();
+
         if(highScore < score) {
             highScore = score;
         }
@@ -383,23 +389,22 @@ public class CanvasPanel extends JPanel {
         // Set the score to zero
         score = 0;
 
-        if(lives >= 0) {
-            this.lives -= 1;
+        if(delay <= 0) {
+            if(lives >= 0) {
+                this.lives -= 1;
+                player.addHitDelay(60);
+            }
         }
     }
 
     /**
      * Displays the 'Game Over' message on the canvas.
      */
-    private void gameOver() {
-        Graphics g = getGraphics();
-        g.setColor(Color.WHITE);
-        g.setFont(new Font("Arial", Font.BOLD, 36));
+    private void gameOver(Graphics g) {
         FontMetrics fontMetrics = g.getFontMetrics();
-        String gameOverMessage = "Game Over!";
-        int x = (getCanvasWidth() - fontMetrics.stringWidth(gameOverMessage)) / 2;
+        int x = (getCanvasWidth() - fontMetrics.stringWidth("Game Over")) / 2;
         int y = getCanvasHeight() / 2;
-        g.drawString(gameOverMessage, x, y);
+        g.drawString("Game Over", x, y);
     }
 
     /**
