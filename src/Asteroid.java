@@ -58,12 +58,7 @@ public class Asteroid extends Shape {
             double distanceSquared = Math.pow(vertex.x, 2) + Math.pow(vertex.y, 2);
             maxDistanceSquared = Math.max(maxDistanceSquared, distanceSquared);
         }
-    }
-
-    public double getBoundingCircleRadius() {
-        return boundingCircleRadius;
-       // return Math.sqrt(maxDistanceSquared);
-
+        return Math.sqrt(maxDistanceSquared);
     }
 
     /**
@@ -99,8 +94,8 @@ public class Asteroid extends Shape {
 
         g2d.drawPolygon(xPoints, yPoints, asteroidShape.size());
 
-        //UNCOMMENT THIS TO SHOW BOUNDING CIRCLE
-        //g2d.drawOval((int) (xPosition - boundingCircleRadius), (int) (yPosition - boundingCircleRadius),
-        //        (int) (2 * boundingCircleRadius), (int) (2 * boundingCircleRadius));
+         // UNCOMMENT THIS TO SHOW BOUNDING CIRCLE
+        g2d.drawOval((int) (xPosition - boundingCircleRadius), (int) (yPosition - boundingCircleRadius),
+                (int) (2 * boundingCircleRadius), (int) (2 * boundingCircleRadius));
     }
 }
