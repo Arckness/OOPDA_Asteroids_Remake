@@ -1,6 +1,10 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashSet;
@@ -21,6 +25,7 @@ public class CanvasPanel extends JPanel {
     private final static int CANVAS_WIDTH = 800;
     private final static int CANVAS_HEIGHT = 400;
 
+    private List<Shape2D> spriteList = new ArrayList<>();
     private int frameNumber;
     private int score = 0;
     private int highScore = 0;
@@ -61,6 +66,23 @@ public class CanvasPanel extends JPanel {
         renderLoop.start();
 
         generateStars();
+
+        BufferedImage[] flameSprites = new BufferedImage[8];
+        try {
+            flameSprites[0] = ImageIO.read(new File("src/flames/flame1.png"));
+            flameSprites[1] = ImageIO.read(new File("src/flames/flame2.png"));
+            flameSprites[2] = ImageIO.read(new File("src/flames/flame3.png"));
+            flameSprites[3] = ImageIO.read(new File("src/flames/flame4.png"));
+            flameSprites[4] = ImageIO.read(new File("src/flames/flame5.png"));
+            flameSprites[5] = ImageIO.read(new File("src/flames/flame6.png"));
+            flameSprites[6] = ImageIO.read(new File("src/flames/flame7.png"));
+            flameSprites[7] = ImageIO.read(new File("src/flames/flame8.png"));
+        } catch (IOException ie) {
+            ie.printStackTrace();
+        }
+
+        spriteList.add(new Sprite2D(10, 300, flameSprites));
+
     }
 
     /**
@@ -173,6 +195,11 @@ public class CanvasPanel extends JPanel {
 
         // Display the score
         g.drawString("Score: " + score , 5, 15);
+
+        for (Shape2D shape : spriteList)
+        {
+            shape.Draw(g);
+        }
     }
 
     // Getters for canvas dimensions and borders
