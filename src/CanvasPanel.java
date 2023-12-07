@@ -99,6 +99,9 @@ public class CanvasPanel extends JPanel {
             }
         }
 
+        wrapObjects(asteroids);
+        wrapObject(player);
+
         checkCollisions();
 
         // Continuously lower the shot delay while the game is ongoing
@@ -342,6 +345,31 @@ public class CanvasPanel extends JPanel {
     private void handleCollision(Asteroid asteroid, Projectile projectile) {
         asteroids.remove(asteroid);
         projectiles.remove(projectile);
+    }
+
+    /**
+     * Checks all asteroids in the game
+     *
+     * @param asteroids
+     */
+    public void wrapObjects(ArrayList<Asteroid> asteroids) {
+        for(Asteroid asteroid : asteroids) {
+            if(asteroid != null) {
+                wrapObject(asteroid);
+            }
+        }
+    }
+
+    /**
+     * Wraps an object in the game if it goes off screen
+     *
+     * @param obj
+     */
+    private void wrapObject(Shape obj) {
+        if (obj.GetX() < 0) obj.setX(CanvasPanel.getCanvasWidth()+200);
+        if (obj.GetX() > CanvasPanel.getCanvasWidth() + 200) obj.setX(0);
+        if (obj.GetY() < 0) obj.setY(CanvasPanel.getCanvasHeight()+100);
+        if (obj.GetY() > CanvasPanel.getCanvasHeight()+ 100) obj.setY(0);
     }
 
 }
