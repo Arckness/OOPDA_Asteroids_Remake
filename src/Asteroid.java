@@ -25,7 +25,7 @@ public class Asteroid extends Shape {
         super(colorIndex, xPosition, yPosition);
         generateRandomAsteroidShape();
         this.velocity = (Math.random() * 2 + 1) / 2;
-        calculateBoundingCircleRadius();
+        boundingCircleRadius = getBoundingCircleRadius();
     }
 
     /**
@@ -47,34 +47,23 @@ public class Asteroid extends Shape {
     }
 
     /**
-     * Calculates the radius of the bounding circle for the collisions
+     * Makes a circle around the asteroid to act as a hit box
+     *
+     * @return boundingCircleRadius
      */
-    private void calculateBoundingCircleRadius() {
-        double centerX = xPosition;
-        double centerY = yPosition;
-
-        for(Point point : asteroidShape) {
-            centerX += point.x;
-            centerY += point.y;
-        }
-
-        centerX /= asteroidShape.size() + 1;
-        centerY /= asteroidShape.size() + 1;
-
+    public double getBoundingCircleRadius() {
         double maxDistanceSquared = 0;
 
-        for (Point point : asteroidShape) {
-            double distanceSquared = Math.pow(point.x - centerX, 2) + Math.pow(point.y - centerY, 2);
+        for (Point vertex : asteroidShape) {
+            double distanceSquared = Math.pow(vertex.x, 2) + Math.pow(vertex.y, 2);
             maxDistanceSquared = Math.max(maxDistanceSquared, distanceSquared);
         }
-
-        double scalingFactor = 0.2;
-
-        boundingCircleRadius = Math.sqrt(maxDistanceSquared) * scalingFactor;
     }
 
     public double getBoundingCircleRadius() {
         return boundingCircleRadius;
+       // return Math.sqrt(maxDistanceSquared);
+
     }
 
     /**
@@ -97,8 +86,6 @@ public class Asteroid extends Shape {
     public void draw(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(Color.WHITE);
-        g2d.drawOval((int) (xPosition - boundingCircleRadius), (int) (yPosition - boundingCircleRadius),
-                (int) (2 * boundingCircleRadius), (int) (2 * boundingCircleRadius));
 
         int[] xPoints = new int[asteroidShape.size()];
         int[] yPoints = new int[asteroidShape.size()];
@@ -111,5 +98,9 @@ public class Asteroid extends Shape {
         }
 
         g2d.drawPolygon(xPoints, yPoints, asteroidShape.size());
+
+        //UNCOMMENT THIS TO SHOW BOUNDING CIRCLE
+        //g2d.drawOval((int) (xPosition - boundingCircleRadius), (int) (yPosition - boundingCircleRadius),
+        //        (int) (2 * boundingCircleRadius), (int) (2 * boundingCircleRadius));
     }
 }
