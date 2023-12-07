@@ -174,7 +174,7 @@ public class CanvasPanel extends JPanel {
         }
 
         // Display the score
-        g.drawString("Score: " + score , 15, 425);
+        g.drawString("Score: " + score , 5, 15);
     }
 
     // Getters for canvas dimensions and borders
@@ -248,10 +248,10 @@ public class CanvasPanel extends JPanel {
                 player.setAcceleration(0); // when up arrow is released turn off acceleration
             }
             if (pressedKeys.contains(KeyEvent.VK_LEFT)) {
-                player.Rotate(-Math.PI / 30);
+                player.Rotate(-Math.PI / 15);
             }
             if (pressedKeys.contains(KeyEvent.VK_RIGHT)) {
-                player.Rotate(Math.PI / 30);
+                player.Rotate(Math.PI / 15);
             }
             if (pressedKeys.contains(KeyEvent.VK_SPACE)) {
                 shootProjectile();
@@ -282,7 +282,7 @@ public class CanvasPanel extends JPanel {
             // Calculate the offset from the center of the player's ship
             double offset = (double) player.GetSideLength() / 2;
 
-            // Calculate the starting position based on the center of the player
+            // Calculate the starting position based in the center of the player
             double projectileX = player.GetX() + offset * Math.cos(player.GetDirection());
             double projectileY = player.GetY() + offset * Math.sin(player.GetDirection());
 
@@ -311,7 +311,7 @@ public class CanvasPanel extends JPanel {
                     projectiles.remove(projectile);
 
                     // Update score
-                    addScore(100);
+                    addScore(50);
                 }
             }
         }
@@ -361,7 +361,7 @@ public class CanvasPanel extends JPanel {
     }
 
     /**
-     * Wraps an object in the game if it goes off screen
+     * Wraps an object in the game if it goes off-screen
      *
      * @param obj
      */

@@ -55,7 +55,7 @@ public class Player extends Shape {
         velocity = Math.min(maxVelocity, velocity);
 
         if(velocity > 0) {
-            decelerate(0.1);
+            decelerate(0.05);
         }
     }
 
