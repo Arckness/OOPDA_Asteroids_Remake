@@ -364,7 +364,7 @@ public class CanvasPanel extends JPanel {
         g.drawString(gameOverMessage, x, y);
 
         // Exit the system when the game is over
-        System.exit(0);
+        // System.exit(0);
     }
 
     /**
