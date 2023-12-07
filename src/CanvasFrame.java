@@ -30,8 +30,7 @@ public class CanvasFrame {
     }
 
     public static void setPreferredSize() {
-        canvas.setPreferredSize(new Dimension(2 * canvas.getCanvasXBorder() + canvas.getCanvasWidth(),
-                2 * canvas.getCanvasYBorder() + canvas.getCanvasHeight())); // Width = 850, Height = 450
+        canvas.setPreferredSize(new Dimension(canvas.getCanvasWidth(), canvas.getCanvasHeight()));
         canvas.setBackground(Color.RED);
     }
 }

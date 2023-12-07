@@ -41,11 +41,22 @@ public class Player extends Shape {
         xPosition += velocity * Math.cos(direction);
         yPosition += velocity * Math.sin(direction);
 
+        // Get canvas dimensions and boarders
+        int canvasWidth = 1000;
+        int canvasHeight = 500;
+
         // Wrap around the screen
-        if (xPosition < 0) xPosition = CanvasPanel.getCanvasWidth() + (2 * CanvasPanel.getCanvasXBorder()) ;
-        if (xPosition > CanvasPanel.getCanvasWidth() + (2 * CanvasPanel.getCanvasXBorder())) xPosition = 0;
-        if (yPosition < 0) yPosition = CanvasPanel.getCanvasHeight() + (2 * CanvasPanel.getCanvasYBorder());
-        if (yPosition > CanvasPanel.getCanvasHeight() + (2 * CanvasPanel.getCanvasYBorder())) yPosition = 0;
+        if (xPosition < 0) {
+            xPosition = canvasWidth;
+        } else if (xPosition > canvasWidth) {
+            xPosition = 0;
+        }
+
+        if (yPosition < 0) {
+            yPosition = canvasHeight;
+        } else if (yPosition > canvasHeight) {
+            yPosition = 0;
+        }
     }
 
     /**

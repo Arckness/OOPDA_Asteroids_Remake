@@ -29,7 +29,7 @@ public class CanvasPanel extends JPanel {
     private ArrayList<Circle> stars;
     private ArrayList<Asteroid> asteroids;
     private ArrayList<Projectile> projectiles;
-    private Player player = new Player(5, CANVAS_WIDTH / 2 + 115, CANVAS_HEIGHT - 50, 25);
+    private Player player = new Player(5, CANVAS_WIDTH / 2 + 80, CANVAS_HEIGHT - 150, 25);
     private Audio shootSound = new Audio();
 
 
@@ -71,7 +71,7 @@ public class CanvasPanel extends JPanel {
 
         Random random = new Random();
         for (int i = 0; i < 150; i++) {
-            stars.add(new Circle(5, random.nextInt(1000), random.nextInt(600), 1));
+            stars.add(new Circle(5, random.nextInt(825), random.nextInt(425), 1));
         }
     }
 
@@ -86,6 +86,7 @@ public class CanvasPanel extends JPanel {
 
         // Move the player
         player.Move();
+
 
         // Move and check bounds for projectiles
         List<Projectile> projectilesCopy = new ArrayList<>(projectiles);
@@ -107,6 +108,7 @@ public class CanvasPanel extends JPanel {
 
         generateAsteroids();
     }
+
 
     /**
      * Adds points to the current score.
@@ -132,7 +134,7 @@ public class CanvasPanel extends JPanel {
         if(asteroids.size() < 5) {
             for(int i = 5 - asteroids.size(); i > 0; i--) {
                 asteroids.add(new Asteroid(i % Shape.COLORS.length, (int) (Math.random() * CANVAS_WIDTH),
-                        (CANVAS_HEIGHT + 20)));
+                        (CANVAS_HEIGHT)));
             }
         }
     }
@@ -150,7 +152,7 @@ public class CanvasPanel extends JPanel {
 
         // Set canvas background to black
         g.setColor(Color.BLACK);
-        g.fillRect(0, 0,CANVAS_WIDTH + (2 * X_CORNER), CANVAS_HEIGHT + (2 * Y_CORNER)); //make the canvas black
+        g.fillRect(0, 0,CANVAS_WIDTH, CANVAS_HEIGHT); //make the canvas black
 
         // Draw stars
         stars.forEach(star -> star.draw(g2));
@@ -338,5 +340,4 @@ public class CanvasPanel extends JPanel {
         asteroids.remove(asteroid);
         projectiles.remove(projectile);
     }
-
 }
