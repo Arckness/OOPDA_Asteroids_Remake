@@ -68,7 +68,9 @@ public class Asteroid extends Shape {
             maxDistanceSquared = Math.max(maxDistanceSquared, distanceSquared);
         }
 
-        boundingCircleRadius = Math.sqrt(maxDistanceSquared);
+        double scalingFactor = 0.2;
+
+        boundingCircleRadius = Math.sqrt(maxDistanceSquared) * scalingFactor;
     }
 
     public double getBoundingCircleRadius() {
@@ -95,6 +97,8 @@ public class Asteroid extends Shape {
     public void draw(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(Color.WHITE);
+        g2d.drawOval((int) (xPosition - boundingCircleRadius), (int) (yPosition - boundingCircleRadius),
+                (int) (2 * boundingCircleRadius), (int) (2 * boundingCircleRadius));
 
         int[] xPoints = new int[asteroidShape.size()];
         int[] yPoints = new int[asteroidShape.size()];
