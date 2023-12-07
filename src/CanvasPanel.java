@@ -109,7 +109,6 @@ public class CanvasPanel extends JPanel {
         // Move the player
         player.Move();
 
-
         // Move and check bounds for projectiles
         List<Projectile> projectilesCopy = new ArrayList<>(projectiles);
         for (Projectile projectile : projectilesCopy) {
@@ -315,9 +314,8 @@ public class CanvasPanel extends JPanel {
 
             // Create a new projectile and add it to the list
             projectiles.add(new Projectile(0, projectileX, projectileY, player.GetDirection(),3, 3));
-            player.addShotDelay(30); // Adds a delay to the shot, change the int if you want it faster/slower
+            player.addShotDelay(20); // Adds a delay to the shot, change the int if you want it faster/slower
         }
-
     }
 
     /**
