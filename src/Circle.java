@@ -46,7 +46,7 @@ public class Circle extends Shape {
     }
     
     /**
-     * Gets the diameter of the cicle.
+     * Gets the diameter of the circle.
      *
      * @return The diameter of the circle
      */

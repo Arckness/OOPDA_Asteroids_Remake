@@ -30,6 +30,12 @@ public class Player extends Shape {
         acceleration = 0;
     }
 
+    /**
+     * Overrides the Move method in Shape.
+     * Makes a circle around the player to act as a hit box.
+     *
+     * @return The radius of the bounding circle
+     */
     @Override
     public double getBoundingCircleRadius() {
         // For simplicity, we'll return the side length divided by 2
@@ -112,18 +118,18 @@ public class Player extends Shape {
     }
 
     /**
-     * Adds Delay
+     * Adds a hit delay
      *
-     * @param delay
+     * @param delay The amount by which to increase the hit delay.
      */
     public void addHitDelay(int delay) {
         this.hitDelay = delay;
     }
 
     /**
-     * Removes delay
+     * Removes a hit delay
      *
-     * @param sec
+     * @param sec The amount by which to decrease the hit delay.
      */
     public void rmvHitDelay(int sec) {
         this.hitDelay -= sec;
@@ -211,8 +217,8 @@ public class Player extends Shape {
         g2d.setTransform(new AffineTransform());
 
         // UNCOMMENT THIS TO SHOW BOUNDING CIRCLE
-        //g2d.drawOval((int) (xPosition - getBoundingCircleRadius()), (int) (yPosition - getBoundingCircleRadius()),
-        //        (int) (2 * getBoundingCircleRadius()), (int) (2 * getBoundingCircleRadius()));
+        // g2d.drawOval((int) (xPosition - getBoundingCircleRadius()), (int) (yPosition - getBoundingCircleRadius()),
+        // (int) (2 * getBoundingCircleRadius()), (int) (2 * getBoundingCircleRadius()));
     }
 }
 

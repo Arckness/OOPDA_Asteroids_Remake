@@ -1,16 +1,15 @@
-
+import java.awt.*;
+import java.awt.geom.*;
 /**
  * 2D Shape Abstract Class
- * 
+ *
  * Polymorhpic Abstract Method Draw
- * 
+ *
  * Animate is not abstract but can be overriden
  *
  * @author (Prof R)
  * @version (v1.0 11-17-22)
  */
-import java.awt.*;
-import java.awt.geom.*;
 public abstract class Shape2D
 {
     // RGB color table

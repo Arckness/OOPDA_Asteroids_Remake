@@ -16,7 +16,7 @@ public abstract class Shape {
     double velocity;
 
     /**
-     * Array of predefines colors for shapes. Each color is represented as a Color object.
+     * Array of predefined colors for shapes. Each color is represented as a Color object.
      */
     public static final Color[] COLORS = {
             //         R     G    B
@@ -48,7 +48,7 @@ public abstract class Shape {
      *
      * @param colorIndex The index of the color for the shape
      * @param xPosition The initial x position of the shape
-     * @param yPosition The initial y posiiton of the shape
+     * @param yPosition The initial y position of the shape
      */
     public Shape(int colorIndex, double xPosition, double yPosition) {
         this.xPosition = xPosition;
@@ -96,6 +96,12 @@ public abstract class Shape {
         this.yPosition = y;
     }
 
+    /**
+     * Abstract method to be implemented by subclasses.
+     * Gets the radius of the bounding circle of the shape.
+     *
+     * @return The radius of the bounding circle
+     */
     public double getBoundingCircleRadius() {
         return 0; // Default implementation, override in subclasses
     }

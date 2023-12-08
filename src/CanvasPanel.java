@@ -351,7 +351,7 @@ public class CanvasPanel extends JPanel {
     }
 
     /**
-     * Handles collision between game objects.
+     * Checks and handles collision between game objects.
      */
     public void checkCollisions() {
         List<Asteroid> asteroidsCopy = new ArrayList<>(asteroids);

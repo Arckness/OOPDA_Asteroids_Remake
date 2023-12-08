@@ -28,6 +28,12 @@ public class Projectile extends Shape {
         this.velocity = 10; // Set initial velocity
     }
 
+    /**
+     * Overrides the Move method in Shape.
+     * Makes a circle around the projectile to act as a hit box.
+     *
+     * @return The radius of the bounding circle
+     */
     @Override
     public double getBoundingCircleRadius() {
         // Return the maximum of width and height divided by 2
@@ -68,14 +74,24 @@ public class Projectile extends Shape {
         g2d.drawRect((int) xPosition, (int) yPosition, width, height);
 
         // UNCOMMENT THIS TO SHOW BOUNDING CIRCLE
-        //g2d.drawOval((int) (xPosition - getBoundingCircleRadius()), (int) (yPosition - getBoundingCircleRadius()),
-        //(int) (2 * getBoundingCircleRadius()), (int) (2 * getBoundingCircleRadius()));
+        // g2d.drawOval((int) (xPosition - getBoundingCircleRadius()), (int) (yPosition - getBoundingCircleRadius()),
+        // (int) (2 * getBoundingCircleRadius()), (int) (2 * getBoundingCircleRadius()));
     }
 
+    /**
+     * Gets the width of the projectile.
+     *
+     * @return The width of the projectile.
+     */
     public int getWidth() {
         return width;
     }
 
+    /**
+     * Gets the height of the projectile.
+     *
+     * @return The height of the projectile.
+     */
     public int getHeight() {
         return height;
     }
